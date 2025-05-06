@@ -1,0 +1,83 @@
+version: '3.8'
+
+networks:
+  publikapp_network:
+
+services:
+  server:
+    build:
+      context: .
+      dockerfile: dockerfiles/nginx.dockerfile
+    ports:
+      - 8080:80
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - php
+      - mysql
+    container_name: publikapp_server
+    networks:
+      - publikapp_network
+
+  php:
+    build:
+      context: .
+      dockerfile: dockerfiles/php.dockerfile
+    volumes:
+      - ./src:/var/www/html:delegated
+    container_name: publikapp_php
+    networks:
+      - publikapp_network
+
+  mysql:
+    image: mysql:8.0.1
+    restart: unless-stopped
+    tty: true
+    container_name: publikapp_mysql
+    env_file:
+      - mysql/.env
+    ports:
+      - 3306:3306
+    networks:
+      - publikapp_network
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    container_name: publikapp_phpmyadmin
+    depends_on:
+      - mysql
+    ports:
+      - 8090:80
+    environment:
+      - PMA_HOST=publikapp_mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=root.pa55
+    networks:
+      - publikapp_network
+
+  composer:
+    build:
+      context: .
+      dockerfile: dockerfiles/composer.dockerfile
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - php
+    container_name: publikapp_composer
+    networks:
+      - publikapp_network
+
+  artisan:
+    build:
+      context: .
+      dockerfile: dockerfiles/php.dockerfile
+    volumes:
+      - ./src:/var/www/html
+    entrypoint: ["php", "/var/www/html/artisan"]
+    container_name: publikapp_artisan
+    networks:
+      - publikapp_network

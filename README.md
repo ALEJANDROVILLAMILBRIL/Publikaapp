@@ -6,8 +6,10 @@
 4. Crear el archivo ".env" dentro de "mysql" con las  variables de entorno a utilizar
 5. Ejecutar "docker-compose up -d"
 6. Por último ejecutar "docker-compose run --rm composer create-project laravel/laravel ." para genera el proyecto Laravel en "src"
-7. Generar Application key "docker-compose run --rm artisan key:generate"
-8. Ejecutar migración de la BD: "docker-compose run --rm artisan migrate"
+8. Levantar el proyecto completo "docker-compose up"
+9. El composer install "docker-compose run --rm composer install"
+10. Generar Application key "docker-compose run --rm artisan key:generate"
+11. Ejecutar migración de la BD: "docker-compose run --rm artisan migrate"
 
 # Pasos para levantar proyecto
 

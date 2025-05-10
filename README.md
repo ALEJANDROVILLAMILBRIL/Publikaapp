@@ -11,6 +11,7 @@
 9. Arrancar el vite build de Bleeze "docker-compose run --rm node npm run build"
 10. Generar Application key "docker-compose run --rm artisan key:generate"
 11. Ejecutar migración de la BD: "docker-compose run --rm artisan migrate"
+12. Ejecutar semilla de la BD: "docker-compose run --rm artisan db:seed"
 
 # Pasos para levantar proyecto
 

@@ -68,6 +68,7 @@
     "Enable": "Enable",
     "Encrypted environment file already exists.": "Encrypted environment file already exists.",
     "Encrypted environment file not found.": "Encrypted environment file not found.",
+    "English": "English",
     "Ensure your account is using a long, random password to stay secure.": "Ensure your account is using a long, random password to stay secure.",
     "Environment file already exists.": "Environment file already exists.",
     "Environment file not found.": "Environment file not found.",
@@ -213,6 +214,7 @@
     "SSL Handshake Failed": "SSL Handshake Failed",
     "Start": "Start",
     "Stop": "Stop",
+    "Spanish": "Spanish",
     "Submit": "Submit",
     "Subscribe": "Subscribe",
     "Switch": "Switch",
@@ -259,5 +261,7 @@
     "Yes": "Yes",
     "You are receiving this email because we received a password reset request for your account.": "You are receiving this email because we received a password reset request for your account.",
     "You're logged in!": "You're logged in!",
-    "Your email address is unverified.": "Your email address is unverified."
+    "Your email address is unverified.": "Your email address is unverified.",
+    "Welcome to PublikaApp!": "Welcome to PublikaApp!",
+    "This is a simple application to demonstrate localization and theming.": "This is a simple application to demonstrate localization and theming."
 }

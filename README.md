@@ -15,3 +15,19 @@
 
 1. docker-compose down (apagar)
 2. docker-compose up (levantar)
+
+# Credenciales BD
+
+## .env de MySql
+MYSQL_DATABASE=publikapp
+MYSQL_USER=user1
+MYSQL_PASSWORD=user1.pass
+MYSQL_ROOT_PASSWORD=root.pa55
+
+## .env de Laravel
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=publikapp
+DB_USERNAME=user1
+DB_PASSWORD=user1.pass

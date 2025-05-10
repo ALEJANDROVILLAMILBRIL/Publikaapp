@@ -252,6 +252,7 @@
     "URI Too Long": "URI Too Long",
     "Use Proxy": "Use Proxy",
     "User": "User",
+    "Users": "Users",
     "Variant Also Negotiates": "Variant Also Negotiates",
     "Verify Email Address": "Verify Email Address",
     "View": "View",
@@ -263,5 +264,11 @@
     "You're logged in!": "You're logged in!",
     "Your email address is unverified.": "Your email address is unverified.",
     "Welcome to PublikaApp!": "Welcome to PublikaApp!",
-    "This is a simple application to demonstrate localization and theming.": "This is a simple application to demonstrate localization and theming."
+    "This is a simple application to demonstrate localization and theming.": "This is a simple application to demonstrate localization and theming.",
+    "Products": "Products",
+    "Product": "Product",
+    "Category": "Category",
+    "Categories": "Categories",
+    "Sales": "Sales",
+    "Sale": "Sale"
 }

@@ -1,13 +1,14 @@
 # Pasos para instalar proyecto
 
-1. Clonar el proyecto
+1. Clonar el proyecto "git clone [url]"
 2. Crear carpeta "mysql_data" en la raíz
 3. Crear carpeta "src" en la raíz
 4. Crear el archivo ".env" dentro de "mysql" con las  variables de entorno a utilizar
-5. Ejecutar "docker-compose up -d"
-6. Por último ejecutar "docker-compose run --rm composer create-project laravel/laravel ." para genera el proyecto Laravel en "src"
-8. Levantar el proyecto completo "docker-compose up"
-9. El composer install "docker-compose run --rm composer install"
+5. Crear el archivo ".env" dentro de "src" con las  variables de entorno a utilizar
+6. Levantar el proyecto completo "docker-compose up"
+7. El composer install "docker-compose run --rm composer install"
+8. El npm install "docker-compose run --rm node npm install"
+9. Arrancar el vite build de Bleeze "docker-compose run --rm node npm run build"
 10. Generar Application key "docker-compose run --rm artisan key:generate"
 11. Ejecutar migración de la BD: "docker-compose run --rm artisan migrate"
 

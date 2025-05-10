@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('customer_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
-            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
+            $table->foreign('customer_id')->references('id')->on('users')->onDelete('set null');
             $table->decimal('total', 8, 2);
             $table->decimal('iva', 8, 2);
             $table->timestamps();

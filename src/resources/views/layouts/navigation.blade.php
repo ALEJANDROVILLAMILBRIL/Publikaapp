@@ -50,6 +50,17 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
+                <div class="flex justify-end items-center gap-x-4 p-4">
+                    <a href="{{ route('lang.switch', 'en') }}"
+                       class="{{ app()->getLocale() === 'en' ? 'font-bold underline' : '' }} text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">
+                       {{ __('English') }}
+                    </a>
+                    <span class="text-gray-500 dark:text-gray-400 px-2">|</span>
+                    <a href="{{ route('lang.switch', 'es') }}"
+                       class="{{ app()->getLocale() === 'es' ? 'font-bold underline' : '' }} text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400">
+                       {{ __('Spanish') }}
+                    </a>
+                </div>
             </div>
 
             <!-- Hamburger -->

@@ -12,10 +12,9 @@ class LanguageController extends Controller
     public function switch(Request $request, $lang)
     {
         if (in_array($lang, ['en', 'es'])) {
-            Session::put('locale', $lang);
-            App::setLocale($lang);
+            return redirect()->back()->withCookie(cookie('locale', $lang, 60 * 24 * 30));
         }
 
-        return Redirect::back();
+        return redirect()->back();
     }
 }

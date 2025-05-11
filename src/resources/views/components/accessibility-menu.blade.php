@@ -10,6 +10,10 @@
             class="w-8 h-8 bg-white text-blue-600 text-sm font-bold rounded-md shadow border border-gray-200">🌙</button>
         <button onclick="resetAccessibility()" title="Reiniciar accesibilidad"
             class="w-8 h-8 bg-white text-blue-600 text-sm font-bold rounded-md shadow border border-gray-200">↺</button>
+        <a href="https://centroderelevo.gov.co/632/w3-channel.html" target="_blank" title="Centro de Relevo"
+            class="w-8 h-8 bg-white text-blue-600 font-bold rounded-md shadow border border-gray-200 text-xs flex justify-center items-center">
+            <span>🔗</span>
+        </a>
     </div>
 </div>
 

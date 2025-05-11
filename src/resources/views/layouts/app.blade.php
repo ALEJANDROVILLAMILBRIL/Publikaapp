@@ -9,6 +9,7 @@
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
+        <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
         @vite('resources/css/app.css')
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
@@ -31,8 +32,8 @@
             <!-- Page Content -->
             <main>
                 {{ $slot }}
-                @include('components.accessibility-menu')
             </main>
+            @include('components.accessibility-menu')
         </div>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         @yield('script')

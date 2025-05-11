@@ -164,6 +164,29 @@
         border: 1px solid #ff0 !important;
     }
 
+    .contrast a:hover,
+    .contrast button:hover,
+    .contrast input:hover,
+    .contrast select:hover,
+    .contrast textarea:hover,
+    .contrast label:hover {
+        background-color: #222 !important;
+        color: #0ff !important;
+        border-color: #ff0 !important;
+    }
+
+    .contrast a:focus,
+    .contrast button:focus,
+    .contrast input:focus,
+    .contrast select:focus,
+    .contrast textarea:focus {
+        outline: 2px solid #0ff !important;
+        outline-offset: 2px;
+        background-color: #111 !important;
+        color: #0ff !important;
+        border-color: #0ff !important;
+    }
+
     .fixed {
         position: fixed;
         top: 50%;

@@ -8,7 +8,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <a href="{{ route('categories.create') }}"
+                    <a href="{{ route('admin.categories.create') }}"
                         class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded mb-6">
                         + {{__('New Category') }}
                     </a>
@@ -31,11 +31,11 @@
                                         <td class="px-6 py-4 text-center">{{ $category->created_at->format('Y-m-d') }}</td>
                                         <td class="px-6 py-4 text-center">
                                             <div class="flex justify-center space-x-2">
-                                                <a href="{{ route('categories.edit', $category->slug) }}"
+                                                <a href="{{ route('admin.categories.edit', $category->slug) }}"
                                                    class="inline-block bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold px-4 py-2 rounded">
                                                    {{ __('Edit') }}
                                                 </a>
-                                                <form id="deleteForm_{{ $category->slug }}" action="{{ route('categories.destroy', $category->slug) }}" method="POST" style="display: inline;">
+                                                <form id="deleteForm_{{ $category->slug }}" action="{{ route('admin.categories.destroy', $category->slug) }}" method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button"

@@ -18,21 +18,26 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('categories.update', $category->slug) }}">
+                    <form action="{{ route('admin.categories.store') }}" method="POST">
                         @csrf
-                        @method('PUT')
 
                         <div class="mb-4">
-                            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">{{ __('Name') }}</label>
+                            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                {{ __('Name') }}
+                            </label>
                             <input type="text" name="name" id="name"
-                                   value="{{ old('name', $category->name) }}"
-                                   class="mt-1 block w-full rounded-md shadow-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white" required>
+                                class="mt-1 block w-full rounded-md bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 p-2"
+                                required>
                         </div>
 
-                        <div>
+                        <div class="flex justify-end">
+                            <a href="{{ route('admin.categories.index') }}"
+                                class="mr-4 inline-block bg-gray-500 hover:bg-gray-600 text-white text-sm font-semibold px-4 py-2 rounded">
+                                {{ __('Cancel') }}
+                            </a>
                             <button type="submit"
-                                    class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-white hover:bg-blue-700">
-                                {{ __('Update') }}
+                                class="inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded">
+                                {{ __('Save') }}
                             </button>
                         </div>
                     </form>

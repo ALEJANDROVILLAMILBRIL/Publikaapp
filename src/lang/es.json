@@ -274,5 +274,8 @@
     "New Category": "Nueva categoría",
     "Created At": "Creado en",
     "Category created successfully!": "¡Categoría creada con éxito!",
-    "No data available in this table": "No hay datos disponibles en esta tabla"
+    "No data available in this table": "No hay datos disponibles en esta tabla",
+    "New Product": "Nuevo producto",
+    "Quantity": "Cantidad",
+    "- Select -": "- Seleccionar -"
 }

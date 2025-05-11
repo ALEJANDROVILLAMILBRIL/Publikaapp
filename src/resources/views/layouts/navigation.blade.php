@@ -19,7 +19,7 @@
                         <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.*')">
                             {{ __('Categories') }}
                         </x-nav-link>
-                        <x-nav-link :href="'#'">
+                        <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.*')">
                             {{ __('Products') }}
                         </x-nav-link>
                         <x-nav-link :href="'#'">

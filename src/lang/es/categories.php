@@ -2,5 +2,6 @@
 
 return [
     'singular' => 'categoría',
-    'plural' => 'Categorías',
+    'plural' => 'categorías',
+    'article' => 'una',
 ];

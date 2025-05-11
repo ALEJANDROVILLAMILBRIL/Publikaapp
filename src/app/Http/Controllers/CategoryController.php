@@ -27,7 +27,8 @@ class CategoryController extends Controller
 
         if (Category::where('name', $request->name)->exists()) {
             flash()->warning(__('messages.duplicate_resource', [
-                'resource' => __('categories.singular')
+                'article' => __('categories.article'),
+                'resource' => __('categories.singular'),
             ]));
             return redirect()->back()->withInput();
         }
@@ -60,7 +61,8 @@ class CategoryController extends Controller
         if ($newName !== $currentName) {
             if (Category::whereRaw('LOWER(name) = ?', [$newName])->where('id', '!=', $category->id)->exists()) {
                 flash()->warning(__('messages.duplicate_resource', [
-                    'resource' => __('categories.singular')
+                    'article' => __('categories.article'),
+                    'resource' => __('categories.singular'),
                 ]));
                 return redirect()->back()->withInput();
             }

@@ -73,17 +73,50 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $product)
     {
-        
+        $categories = Category::all();
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Product $product)
     {
-        
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'quantity' => 'required|integer|min:0',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        $newName = trim(Str::lower($request->name));
+        $currentName = trim(Str::lower($product->name));
+
+        if ($newName !== $currentName) {
+            if (Product::whereRaw('LOWER(name) = ?', [$newName])->where('id', '!=', $product->id)->exists()) {
+                flash()->warning(__('messages.duplicate_resource', [
+                    'article' => __('products.article'),
+                    'resource' => __('products.singular'),
+                ]));
+                return redirect()->back()->withInput();
+            }
+
+            $product->name = $request->name;
+            $product->slug = Str::slug($request->name);
+        }
+
+        $product->price = $request->price;
+        $product->quantity = $request->quantity;
+        $product->category_id = $request->category_id;
+        $product->save();
+
+        flash()->success(__('messages.updated_successfully', [
+            'resource' => ucfirst(__('products.singular'))
+        ]));
+
+        return redirect()->route('admin.products.index');
     }
 
     /**

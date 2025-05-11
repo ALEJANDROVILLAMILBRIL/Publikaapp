@@ -35,11 +35,11 @@
                                         <td class="px-6 py-4 text-center">{{ $product->created_at->format('Y-m-d') }}</td>
                                         <td class="px-6 py-4 text-center">
                                             <div class="flex justify-center space-x-2">
-                                                <a href="{{ route('admin.categories.edit', $product->slug) }}"
+                                                <a href="{{ route('admin.products.edit', $product->slug) }}"
                                                 class="inline-block bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold px-4 py-2 rounded">
                                                 {{ __('Edit') }}
                                                 </a>
-                                                <form id="deleteForm_{{ $product->slug }}" action="{{ route('admin.categories.destroy', $product->slug) }}" method="POST" style="display: inline;">
+                                                <form id="deleteForm_{{ $product->slug }}" action="{{ route('admin.products.destroy', $product->slug) }}" method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button"

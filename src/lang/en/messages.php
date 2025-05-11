@@ -7,4 +7,5 @@ return [
     'deleted_successfully' => ':resource deleted successfully!',
     'confirm_title' => 'Are you sure?',
     'confirm_text' => 'This action cannot be undone.',
+    'category_has_products' => ':resource cannot be deleted because it has associated products.',
 ];

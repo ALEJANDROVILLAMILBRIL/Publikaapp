@@ -81,6 +81,14 @@ class CategoryController extends Controller
 
     public function destroy(Category $category)
     {
+        if ($category->products()->count() > 0) {
+            flash()->warning(__('messages.category_has_products', [
+                'resource' => __('categories.singular'),
+            ]));
+    
+            return redirect()->route('admin.categories.index');
+        }
+
         $category->delete();
 
         flash()->success(__('messages.deleted_successfully', [

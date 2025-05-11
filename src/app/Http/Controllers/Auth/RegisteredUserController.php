@@ -30,10 +30,17 @@ class RegisteredUserController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'unique:'.User::class],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+
+        if (User::where('name', $request->name)->exists()) {
+            flash()->warning(__('messages.duplicate_resource', [
+                'resource' => __('users.singular'),
+            ]));
+            return back()->withInput();
+        }
 
         $user = User::create([
             'name' => $request->name,

@@ -24,6 +24,13 @@ class CategoryController extends Controller
             'name' => 'required|string|max:255',
         ]);
 
+        if (Category::where('name', $request->name)->exists()) {
+            flash()->warning(__('messages.duplicate_resource', [
+                'resource' => __('categories.singular')
+            ]));
+            return redirect()->back()->withInput();
+        }
+
         Category::create([
             'name' => $request->name,
         ]);

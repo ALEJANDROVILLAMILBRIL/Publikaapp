@@ -69,8 +69,99 @@
         color: #ff0 !important;
     }
 
-    .contrast a {
+    .contrast body,
+    .contrast header,
+    .contrast footer,
+    .contrast main,
+    .contrast section,
+    .contrast article,
+    .contrast aside,
+    .contrast nav,
+    .contrast div,
+    .contrast span,
+    .contrast p,
+    .contrast h1,
+    .contrast h2,
+    .contrast h3,
+    .contrast h4,
+    .contrast h5,
+    .contrast h6,
+    .contrast ul,
+    .contrast ol,
+    .contrast li,
+    .contrast table,
+    .contrast tr,
+    .contrast th,
+    .contrast td,
+    .contrast a,
+    .contrast button,
+    .contrast input,
+    .contrast select,
+    .contrast textarea,
+    .contrast label,
+    .contrast fieldset,
+    .contrast legend,
+    .contrast option,
+    .contrast optgroup,
+    .contrast details,
+    .contrast summary,
+    .contrast blockquote,
+    .contrast strong,
+    .contrast em,
+    .contrast u,
+    .contrast mark,
+    .contrast del,
+    .contrast sub,
+    .contrast sup,
+    .contrast b,
+    .contrast i,
+    .contrast small,
+    .contrast big,
+    .contrast address,
+    .contrast hr,
+    .contrast img,
+    .contrast svg,
+    .contrast iframe,
+    .contrast pre,
+    .contrast code,
+    .contrast input[type="text"],
+    .contrast input[type="password"],
+    .contrast input[type="email"],
+    .contrast input[type="tel"],
+    .contrast input[type="url"],
+    .contrast input[type="number"],
+    .contrast input[type="date"],
+    .contrast input[type="datetime-local"],
+    .contrast input[type="month"],
+    .contrast input[type="week"],
+    .contrast input[type="time"],
+    .contrast input[type="search"],
+    .contrast input[type="range"],
+    .contrast input[type="color"],
+    .contrast button,
+    .contrast textarea {
         color: #0ff !important;
+        background-color: #000 !important;
+        border-color: #ff0 !important;
+    }
+
+    .contrast img {
+        border: 2px solid #ff0 !important;
+    }
+
+    .contrast svg {
+        fill: #ff0 !important;
+    }
+
+    .contrast hr {
+        border-color: #ff0 !important;
+    }
+
+    .contrast pre,
+    .contrast code {
+        background-color: #111 !important;
+        color: #0ff !important;
+        border: 1px solid #ff0 !important;
     }
 
     .fixed {

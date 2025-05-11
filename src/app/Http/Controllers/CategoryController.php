@@ -76,4 +76,15 @@ class CategoryController extends Controller
 
         return redirect()->route('categories.index');
     }
+
+    public function destroy(Category $category)
+    {
+        $category->delete();
+
+        flash()->success(__('messages.deleted_successfully', [
+            'resource' => __('categories.singular')
+        ]));
+
+        return redirect()->route('categories.index');
+    }
 }

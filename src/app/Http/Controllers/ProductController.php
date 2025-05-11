@@ -122,8 +122,14 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product)
     {
-        
+        $product->delete();
+
+        flash()->success(__('messages.deleted_successfully', [
+            'resource' => __('products.singular')
+        ]));
+
+        return redirect()->route('admin.products.index');
     }
 }

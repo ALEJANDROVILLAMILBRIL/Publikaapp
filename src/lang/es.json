@@ -270,5 +270,9 @@
     "Category": "Categoría",
     "Categories": "Categorías",
     "Sales": "Ventas",
-    "Sale": "Venta"
+    "Sale": "Venta",
+    "New Category": "Nueva categoría",
+    "Created At": "Creado en",
+    "Category created successfully!": "¡Categoría creada con éxito!",
+    "No data available in this table": "No hay datos disponibles en esta tabla"
 }

@@ -33,7 +33,7 @@
                                             <!-- Contenedor para las acciones, usando flexbox para distribuir los botones -->
                                             <div class="flex justify-center space-x-2">
                                                 <!-- Editar -->
-                                                <a href="{{ route('categories.edit', $category->id) }}"
+                                                <a href="{{ route('categories.edit', $category->slug) }}"
                                                    class="inline-block bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold px-3 py-1 rounded">
                                                    {{ __('Edit') }}
                                                 </a>

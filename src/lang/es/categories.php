@@ -2,4 +2,5 @@
 
 return [
     'singular' => 'categoría',
+    'plural' => 'Categorías',
 ];

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -35,7 +36,43 @@ class CategoryController extends Controller
             'name' => $request->name,
         ]);
 
-        flash()->success('Category created successfully!');
+        flash()->success(__('messages.created_successfully', [
+            'resource' => __('categories.singular')
+        ]));
+
+        return redirect()->route('categories.index');
+    }
+
+    public function edit(Category $category)
+    {
+        return view('categories.edit', compact('category'));
+    }
+
+    public function update(Request $request, Category $category)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+    
+        $newName = trim(Str::lower($request->name));
+        $currentName = trim(Str::lower($category->name));
+
+        if ($newName !== $currentName) {
+            if (Category::whereRaw('LOWER(name) = ?', [$newName])->where('id', '!=', $category->id)->exists()) {
+                flash()->warning(__('messages.duplicate_resource', [
+                    'resource' => __('categories.singular')
+                ]));
+                return redirect()->back()->withInput();
+            }
+
+            $category->name = $request->name;
+            $category->slug = Str::slug($request->name);
+            $category->save();
+        }
+
+        flash()->success(__('messages.updated_successfully', [
+            'resource' => __('categories.singular')
+        ]));
 
         return redirect()->route('categories.index');
     }

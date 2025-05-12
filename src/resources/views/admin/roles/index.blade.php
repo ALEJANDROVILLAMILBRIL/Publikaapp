@@ -15,6 +15,7 @@
                                     <th class="w-1/12 px-6 py-4 text-center text-sm font-semibold">ID</th>
                                     <th class="w-4/12 px-6 py-4 text-center text-sm font-semibold">{{ __('Name') }}</th>
                                     <th class="w-3/12 px-6 py-4 text-center text-sm font-semibold">{{ __('Created At') }}</th>
+                                    <th class="w-4/12 px-6 py-4 text-center text-sm font-semibold">{{ __('Actions') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -23,10 +24,20 @@
                                         <td class="px-6 py-4 text-center">{{ $rol->id }}</td>
                                         <td class="px-6 py-4 text-center">{{ $rol->name }}</td>
                                         <td class="px-6 py-4 text-center">{{ $rol->created_at->format('Y-m-d') }}</td>
+                                        <td class="px-6 py-4 text-center">
+                                            <div class="flex justify-center space-x-2">
+                                                <a href="{{ route('admin.roles.show', $rol->slug) }}"
+                                                    class="inline-block bg-blue-600 hover:bg-blue-700 text-white dark:text-gray-100 text-sm font-semibold px-3 py-2 rounded"
+                                                    title="{{ __('View') }}"
+                                                    aria-label="{{ __('View') }}">
+                                                    <i class="fas fa-eye"></i>
+                                                 </a>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="px-6 py-6 text-center text-gray-500 dark:text-gray-400">
+                                        <td colspan="4" class="px-6 py-6 text-center text-gray-500 dark:text-gray-400">
                                             {{ __('No data available in this table') }}
                                         </td>
                                     </tr>

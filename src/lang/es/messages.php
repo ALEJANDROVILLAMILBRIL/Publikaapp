@@ -8,4 +8,6 @@ return [
     'confirm_title' => '¿Estás seguro?',
     'confirm_text' => 'Esta acción no se puede deshacer.',
     'category_has_products' => 'La :resource no se puede eliminar porque tiene productos asociados.',
+    'model_detail_description' => 'Esta es la información detallada de :name.',
+    'model_detail_intro' => ':Name Detalle',
 ];

@@ -278,5 +278,10 @@
     "New Product": "Nuevo producto",
     "Quantity": "Cantidad",
     "- Select -": "- Seleccionar -",
-    "Role": "Rol"
+    "Role": "Rol",
+    "role": "rol",
+    "Back": "Atrás",
+    "back": "atrás",
+    "Slug": "Identificador URL",
+    "slug": "identificador URL"
 }

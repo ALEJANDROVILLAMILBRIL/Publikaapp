@@ -8,4 +8,6 @@ return [
     'confirm_title' => 'Are you sure?',
     'confirm_text' => 'This action cannot be undone.',
     'category_has_products' => ':resource cannot be deleted because it has associated products.',
+    'model_detail_description' => 'This is the detailed information of the :name.',
+    'model_detail_intro' => ':Name Detail',
 ];

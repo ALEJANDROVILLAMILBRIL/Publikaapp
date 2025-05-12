@@ -278,5 +278,10 @@
     "New Product": "New Product",
     "Quantity": "Quantity",
     "- Select -": "- Select -",
-    "Role": "Role"
+    "Role": "Role",
+    "role": "role",
+    "Back": "Back",
+    "back": "back",
+    "Slug": "Slug",
+    "slug": "slug"
 }

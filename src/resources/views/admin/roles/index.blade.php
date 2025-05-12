@@ -48,9 +48,9 @@
                                 </div>
                             </form>
                         </div>
-                    </div>                                                                                              
-                                                                                                                                 
-                    <div class="overflow-x-auto">
+                    </div>
+
+                    <div class="hidden md:block overflow-x-auto">
                         <table class="table-fixed w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
                             <thead>
                                 <tr class="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
@@ -73,7 +73,7 @@
                                                     title="{{ __('View') }}"
                                                     aria-label="{{ __('View') }}">
                                                     <i class="fas fa-eye"></i>
-                                                 </a>
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>
@@ -87,6 +87,39 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <!-- Versión de tarjetas para pantallas pequeñas -->
+                    <div class="md:hidden">
+                        @forelse ($roles as $rol)
+                            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 rounded-lg shadow mb-3">
+                                <div class="space-y-2 text-sm">
+                                    <div class="flex items-start space-x-2">
+                                        <span class="text-gray-500 dark:text-gray-400 font-medium w-24">{{ __('ID') }}:</span>
+                                        <span class="text-gray-800 dark:text-gray-100 flex-1">{{ $rol->id }}</span>
+                                    </div>
+                                    <div class="flex items-start space-x-2">
+                                        <span class="text-gray-500 dark:text-gray-400 font-medium w-24">{{ __('Name') }}:</span>
+                                        <span class="text-gray-800 dark:text-gray-100 flex-1">{{ $rol->name }}</span>
+                                    </div>
+                                    <div class="flex items-start space-x-2">
+                                        <span class="text-gray-500 dark:text-gray-400 font-medium w-24">{{ __('Created At') }}:</span>
+                                        <span class="text-gray-800 dark:text-gray-100 flex-1">{{ $rol->created_at->format('Y-m-d') }}</span>
+                                    </div>
+                                    <div class="flex pt-2">
+                                        <a href="{{ route('admin.roles.show', $rol->slug) }}"
+                                        class="inline-flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3 py-1.5 rounded">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        @empty
+                            <div class="text-center text-gray-500 dark:text-gray-400">
+                                {{ __('No data available in this table') }}
+                            </div>
+                        @endforelse
+                    </div>
+
                     
                     <div class="mt-4">
                         {{ $roles->appends(request()->except('page'))->links() }}

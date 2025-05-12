@@ -15,32 +15,32 @@
                             </div>
                             <form method="GET" action="{{ route('admin.roles.index') }}">
                                 <div class="p-4">
-                                    <div class="flex flex-wrap gap-4 items-end">
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
                                         <!-- Campo Name -->
-                                        <div class="flex flex-col w-full sm:w-1/4">
+                                        <div class="flex flex-col w-full">
                                             <label for="name" class="text-sm font-semibold text-gray-700 dark:text-gray-200">{{ __('Name') }}</label>
                                             <input type="text" id="name" name="name" value="{{ request('name') }}"
                                             placeholder="{{ __('Enter name') }}"
-                                            class="mt-1 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm">
+                                            class="mt-1 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm w-full">
                                         </div>
-                                
+                                    
                                         <!-- Campo Creation Date -->
-                                        <div class="flex flex-col w-full sm:w-1/4">
+                                        <div class="flex flex-col w-full">
                                             <label for="created_at" class="text-sm font-semibold text-gray-700 dark:text-gray-200">{{ __('Creation date') }}</label>
                                             <input type="date" id="created_at" name="created_at" value="{{ request('created_at') }}"
-                                            class="mt-1 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm">
+                                            class="mt-1 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm w-full">
                                         </div>
-                                
-                                        <!-- Botones -->
-                                        <div class="flex gap-2 mt-6">
+                                    
+                                        <!-- Botones en una fila -->
+                                        <div class="flex gap-4 w-full sm:w-auto justify-between sm:justify-start md:col-span-2">
                                             <button type="submit"
-                                            class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-md shadow-md transition-all">
+                                            class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-md shadow-md transition-all w-full sm:w-auto">
                                             {{ __('Search') }}
                                             </button>
                                             @if(request()->has('name') || request()->has('created_at'))
                                                 <a href="{{ route('admin.roles.index') }}"
-                                                    class="bg-red-600 flex items-center hover:bg-red-700 text-white text-sm font-semibold px-4 py-2 rounded-md shadow-md transition-all">
-                                                    {{ __('Clear') }}
+                                                class="bg-red-600 flex items-center justify-center hover:bg-red-700 text-white text-sm font-semibold px-4 py-2 rounded-md shadow-md transition-all w-full sm:w-auto">
+                                                {{ __('Clear') }}
                                                 </a>
                                             @endif
                                         </div>
@@ -48,7 +48,7 @@
                                 </div>
                             </form>
                         </div>
-                    </div>
+                    </div>                                                                                              
                                                                                                                                  
                     <div class="overflow-x-auto">
                         <table class="table-fixed w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">

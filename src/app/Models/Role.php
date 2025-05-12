@@ -16,6 +16,11 @@ class Role extends Model
         });
     }
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function users()
     {
         return $this->hasMany(User::class);

@@ -4,8 +4,10 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RoleController;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -30,9 +32,14 @@ Route::bind('product', function ($value) {
     return Product::where('slug', $value)->firstOrFail();
 });
 
+Route::bind('role', function ($value) {
+    return Role::where('slug', $value)->firstOrFail();
+});
+
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
+    Route::resource('roles', RoleController::class);
 });
 
 Route::get('lang/{lang}', [LanguageController::class, 'switch'])->name('lang.switch');

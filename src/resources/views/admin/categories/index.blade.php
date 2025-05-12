@@ -32,16 +32,20 @@
                                         <td class="px-6 py-4 text-center">
                                             <div class="flex justify-center space-x-2">
                                                 <a href="{{ route('admin.categories.edit', $category->slug) }}"
-                                                   class="inline-block bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold px-4 py-2 rounded">
-                                                   {{ __('Edit') }}
-                                                </a>
+                                                    class="inline-block bg-yellow-500 hover:bg-yellow-600 text-white dark:text-gray-100 text-sm font-semibold px-3 py-2 rounded"
+                                                    title="{{ __('Edit') }}"
+                                                    aria-label="{{ __('Edit') }}">
+                                                    <i class="fas fa-edit"></i>
+                                                 </a>
                                                 <form id="deleteForm_{{ $category->slug }}" action="{{ route('admin.categories.destroy', $category->slug) }}" method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button"
                                                         onclick="confirmDelete('{{ $category->slug }}')"
-                                                        class="inline-block bg-red-600 hover:bg-red-700 text-white text-sm font-semibold px-4 py-2 rounded">
-                                                        {{ __('Delete') }}
+                                                        class="inline-block bg-red-600 hover:bg-red-700 text-white dark:text-gray-100 text-sm font-semibold px-3 py-2 rounded"
+                                                        title="{{ __('Delete') }}"
+                                                        aria-label="{{ __('Delete') }}">
+                                                        <i class="fas fa-trash-alt"></i>
                                                     </button>
                                                 </form>
                                             </div>

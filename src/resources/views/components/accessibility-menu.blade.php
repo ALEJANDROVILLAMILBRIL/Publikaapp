@@ -36,12 +36,7 @@
         fontSize = Math.min(150, Math.max(80, fontSize + change * 10));
         document.documentElement.style.fontSize = fontSize + '%';
         localStorage.setItem('fontSize', fontSize);
-
-        if (fontSize >= 120) {
-            document.body.style.overflowY = 'auto';
-        } else {
-            document.body.style.overflowY = 'hidden';
-        }
+        document.body.style.overflowY = 'auto';
     }
 
     function toggleContrast() {
@@ -60,7 +55,7 @@
         document.documentElement.style.fontSize = '100%';
         document.body.classList.remove('contrast');
         document.documentElement.classList.remove('dark');
-        document.body.style.overflowY = 'hidden';
+        document.body.style.overflowY = 'auto';
         localStorage.removeItem('fontSize');
         localStorage.removeItem('contrast');
         localStorage.removeItem('darkMode');

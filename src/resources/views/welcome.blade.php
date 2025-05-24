@@ -93,7 +93,7 @@
                                             {{ $product->description }}
                                         </p>
                                         <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                                            {{ __('Category:') }} {{ $product->category->name ?? __('Uncategorized') }}
+                                            {{ __('Category') }}: {{ $product->category->name ?? __('Uncategorized') }}
                                         </p>
                                         <p class="text-md text-green-600 dark:text-green-400 font-bold mt-3">
                                             ${{ number_format($product->price, 2) }}

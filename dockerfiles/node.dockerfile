@@ -2,6 +2,10 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY ./src /app
+COPY src/package*.json ./
 
-CMD ["sh"]
+RUN npm install
+
+COPY ./src .
+
+CMD ["npm", "start"]

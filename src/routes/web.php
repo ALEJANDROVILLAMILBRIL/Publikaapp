@@ -42,6 +42,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('roles', RoleController::class);
 });
 
+Route::get('/', [ProductController::class, 'homepage']);
+
 Route::get('lang/{lang}', [LanguageController::class, 'switch'])->name('lang.switch');
 
 require __DIR__.'/auth.php';

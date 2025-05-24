@@ -81,6 +81,34 @@
                     <p class="text-sm lg:text-base text-[#1b1b18] dark:text-[#EDEDEC]">
                         {{ __('This is a simple application to demonstrate localization and theming.') }}
                     </p>
+                    @if ($products->count())
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+                            @foreach ($products as $product)
+                                <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
+                                    <div class="p-4">
+                                        <h2 class="text-lg font-semibold text-gray-800 dark:text-white">
+                                            {{ $product->name }}
+                                        </h2>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+                                            {{ $product->description }}
+                                        </p>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                                            {{ __('Category:') }} {{ $product->category->name ?? __('Uncategorized') }}
+                                        </p>
+                                        <p class="text-md text-green-600 dark:text-green-400 font-bold mt-3">
+                                            ${{ number_format($product->price, 2) }}
+                                        </p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @else
+                        <p class="text-gray-500 dark:text-gray-400 mt-6">
+                            {{ __('No products available.') }}
+                        </p>
+                    @endif
+                </div>
+                <div class="flex items">
             </main>
         </div>
         @include('components.accessibility-menu')

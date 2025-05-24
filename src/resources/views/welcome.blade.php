@@ -85,6 +85,14 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
                             @foreach ($products as $product)
                                 <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden">
+                                    @if($product->image)
+                                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
+                                            class="w-full h-48 object-cover">
+                                    @else
+                                        <img src="{{ asset('images/products/product-image.svg') }}" alt="Default image"
+                                            class="w-full h-48 object-cover">
+                                    @endif
+
                                     <div class="p-4">
                                         <h2 class="text-lg font-semibold text-gray-800 dark:text-white">
                                             {{ $product->name }}
@@ -97,6 +105,9 @@
                                         </p>
                                         <p class="text-md text-green-600 dark:text-green-400 font-bold mt-3">
                                             ${{ number_format($product->price, 2) }}
+                                        </p>
+                                        <p class="text-sm text-gray-700 dark:text-gray-200 mt-1">
+                                            {{ __('Available') }}: {{ $product->quantity }} {{ $product->quantity == 1 ? __('unit') : __('units') }}
                                         </p>
                                     </div>
                                 </div>

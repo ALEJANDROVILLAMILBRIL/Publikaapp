@@ -88,5 +88,6 @@
             @include('components.accessibility-menu')
         </div>
     </main>
+    @yield('script')
 </body>
 </html>

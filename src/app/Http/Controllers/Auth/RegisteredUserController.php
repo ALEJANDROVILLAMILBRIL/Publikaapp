@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
+use App\Models\Region;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -19,7 +21,9 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $cities = City::all();
+        $regions = Region::all();
+        return view('auth.register', compact('cities', 'regions'));
     }
 
     /**
@@ -33,6 +37,9 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255', 'unique:'.User::class],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'address' => ['nullable', 'string', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:20'],
+            'city_id' => ['required', 'exists:cities,id'],
         ]);
 
         if (User::where('name', $request->name)->exists()) {
@@ -46,6 +53,9 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'city_id' => $request->city_id,
+            'address' => $request->address,
+            'phone' => $request->phone,
             'role_id' => 2,
         ]);
 

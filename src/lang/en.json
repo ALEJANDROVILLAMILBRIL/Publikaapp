@@ -294,5 +294,11 @@
     "Search Section": "Search Section",
     "Enter name": "Enter name",
     "Enter role": "Enter role",
-    "Clear": "Clear"
+    "Clear": "Clear",
+    "Departments": "Departments",
+    "Department": "Department",
+    "City": "City",
+    "Cities": "Cities",
+    "Address": "Address",
+    "Phone": "Phone"
 }

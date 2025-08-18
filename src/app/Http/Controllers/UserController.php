@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
+use App\Models\Region;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -43,7 +45,9 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all();
-        return view('admin.users.create', compact('roles'));
+        $regions = Region::all();
+        $cities = City::all();
+        return view('admin.users.create', compact('roles', 'regions', 'cities'));
     }
 
     /**
@@ -56,6 +60,8 @@ class UserController extends Controller
             'email'                 => 'required|string|email|max:255|unique:users,email',
             'password'              => 'required|string|min:8|confirmed',
             'role_id'               => 'required|exists:roles,id',
+            'region_id'             => 'required|exists:regions,id',
+            'city_id'               => 'required|exists:cities,id',
             'address'               => 'nullable|string|max:255',
             'phone'                 => 'nullable|string|max:20',
         ]);
@@ -67,6 +73,7 @@ class UserController extends Controller
             'role_id'        => $validated['role_id'],
             'address'        => $validated['address'] ?? null,
             'phone'          => $validated['phone'] ?? null,
+            'city_id'        => $validated['city_id'],
             'remember_token' => Str::random(60),
         ]);
 
@@ -91,7 +98,9 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::all();
-        return view('admin.users.edit', compact('user', 'roles'));
+        $regions = Region::all();
+        $cities = City::all();
+        return view('admin.users.edit', compact('user', 'roles', 'cities', 'regions'));
     }
 
     /**
@@ -105,6 +114,8 @@ class UserController extends Controller
             'password'              => 'nullable|string|min:8|confirmed',
             'role_id'               => 'required|exists:roles,id',
             'address'               => 'nullable|string|max:255',
+            'region_id'             => 'required|exists:regions,id',
+            'city_id'               => 'required|exists:cities,id',
             'phone'                 => 'nullable|string|max:20',
         ]);
 
@@ -114,6 +125,7 @@ class UserController extends Controller
             'role_id' => $validated['role_id'],
             'address' => $validated['address'] ?? null,
             'phone'   => $validated['phone'] ?? null,
+            'city_id' => $validated['city_id'],
         ];
 
         if (!empty($validated['password'])) {

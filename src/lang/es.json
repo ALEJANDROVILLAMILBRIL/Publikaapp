@@ -294,5 +294,11 @@
     "Search Section": "Sección de búsqueda",
     "Enter name": "Introduzca el nombre",
     "Enter role": "Introduzca el rol",
-    "Clear": "Limpiar"
+    "Clear": "Limpiar",
+    "Departments": "Departamentos",
+    "Department": "Departamento",
+    "City": "Ciudad",
+    "Cities": "Ciudades",
+    "Address": "Dirección",
+    "Phone": "Teléfono"
 }

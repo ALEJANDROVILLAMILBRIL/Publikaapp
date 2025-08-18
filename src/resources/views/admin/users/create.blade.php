@@ -98,6 +98,35 @@
                             </select>
                         </div>
 
+                        <!-- Departamento -->
+                        <div class="mb-4">
+                            <label for="region_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                {{ __('Department') }}
+                            </label>
+                            <select id="region_id" name="region_id"
+                                class="mt-1 block w-full rounded-md bg-gray-100 dark:bg-gray-700 border
+                                    border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 p-2">
+                                <option value="">{{ __('- Select -') }}</option>
+                                @foreach($regions as $region)
+                                    <option value="{{ $region->id }}" @selected(old('region_id') == $region->id)>
+                                        {{ $region->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Ciudad -->
+                        <div class="mb-4">
+                            <label for="city_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                {{ __('City') }}
+                            </label>
+                            <select id="city_id" name="city_id"
+                                class="mt-1 block w-full rounded-md bg-gray-100 dark:bg-gray-700 border
+                                    border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 p-2">
+                                <option value="">{{ __('- Select -') }}</option>
+                            </select>
+                        </div>
+
                         <!-- Dirección -->
                         <div class="mb-4">
                             <label for="address" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -137,34 +166,62 @@
         </div>
     </div>
     <style>
-    .input-group {
-        position: relative;
-        width: 100%;
-    }
+        .input-group {
+            position: relative;
+            width: 100%;
+        }
 
-    .input-group input {
-        width: 100%;
-        padding-right: 2.5rem;
-        box-sizing: border-box;
-    }
+        .input-group input {
+            width: 100%;
+            padding-right: 2.5rem;
+            box-sizing: border-box;
+        }
 
-    .toggle-eye {
-        position: absolute;
-        top: 50%;
-        right: 0.75rem;
-        transform: translateY(-50%);
-        cursor: pointer;
-        background: none;
-        border: none;
-        color: #666;
-    }
+        .toggle-eye {
+            position: absolute;
+            top: 50%;
+            right: 0.75rem;
+            transform: translateY(-50%);
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #666;
+        }
 
-    .toggle-eye:hover {
-        color: #111;
-    }
+        .toggle-eye:hover {
+            color: #111;
+        }
     </style>
+
     @section('script')
         <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const cities = @json($cities);
+                const regionSelect = document.getElementById('region_id');
+                const citySelect = document.getElementById('city_id');
+
+                regionSelect.addEventListener('change', function() {
+                    citySelect.innerHTML = '<option value="">{{ __("- Select -") }}</option>';
+
+                    const filtered = cities.filter(c => c.region_id == this.value);
+                    filtered.forEach(c => {
+                        const opt = document.createElement('option');
+                        opt.value = c.id;
+                        opt.textContent = c.name;
+                        citySelect.appendChild(opt);
+                    });
+
+                    @if(old('city_id'))
+                        citySelect.value = '{{ old('city_id') }}';
+                    @endif
+                });
+
+                @if(old('region_id'))
+                    regionSelect.dispatchEvent(new Event('change'));
+                    regionSelect.value = '{{ old('region_id') }}';
+                @endif
+            });
+
             function togglePassword(fieldId, button) {
                 const input = document.getElementById(fieldId);
                 const icon = button.querySelector("i");

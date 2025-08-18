@@ -100,6 +100,38 @@
                             </select>
                         </div>
 
+                        <!-- Departamento -->
+                        <div class="mb-4">
+                            <label for="region_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                {{ __('Department') }}
+                            </label>
+                            <select id="region_id" name="region_id"
+                                class="mt-1 block w-full rounded-md bg-gray-100 dark:bg-gray-700 border
+                                    border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 p-2"
+                                required>
+                                <option value="">{{ __('- Select -') }}</option>
+                                @foreach($regions as $region)
+                                    <option value="{{ $region->id }}"
+                                        @selected(old('region_id', $user->region_id) == $region->id)>
+                                        {{ $region->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Ciudad -->
+                        <div class="mb-4">
+                            <label for="city_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                                {{ __('City') }}
+                            </label>
+                            <select id="city_id" name="city_id"
+                                class="mt-1 block w-full rounded-md bg-gray-100 dark:bg-gray-700 border
+                                    border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 p-2"
+                                required>
+                                <option value="">{{ __('- Select -') }}</option>
+                            </select>
+                        </div>
+
                         <!-- Dirección -->
                         <div class="mb-4">
                             <label for="address" class="block text-sm font-medium text-gray-700 dark:text-gray-300">
@@ -169,6 +201,40 @@
     </style>
     @section('script')
         <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const cities = @json($cities);
+                const regionSelect = document.getElementById('region_id');
+                const citySelect = document.getElementById('city_id');
+
+                function populateCities(regionId, selectedCityId = null) {
+                    citySelect.innerHTML = '<option value="">{{ __("- Select -") }}</option>';
+
+                    const filtered = cities.filter(c => c.region_id == regionId);
+                    filtered.forEach(c => {
+                        const opt = document.createElement('option');
+                        opt.value = c.id;
+                        opt.textContent = c.name;
+                        citySelect.appendChild(opt);
+                    });
+
+                    if(selectedCityId) {
+                        citySelect.value = selectedCityId;
+                    }
+                }
+
+                regionSelect.addEventListener('change', function() {
+                    populateCities(this.value);
+                });
+
+                const userCityId = '{{ old('city_id', $user->city_id) }}';
+                const userCity = cities.find(c => c.id == userCityId);
+                const initialRegion = userCity ? userCity.region_id : null;
+
+                if(initialRegion) {
+                    regionSelect.value = initialRegion;
+                    populateCities(initialRegion, userCityId);
+                }
+            });
             function togglePassword(fieldId, button) {
                 const input = document.getElementById(fieldId);
                 const icon = button.querySelector("i");

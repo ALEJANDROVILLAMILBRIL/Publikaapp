@@ -78,9 +78,6 @@
                     <h1 class="text-3xl lg:text-5xl font-bold text-[#1b1b18] dark:text-[#EDEDEC]">
                         {{ __('Welcome to PublikaApp!') }}
                     </h1>
-                    <p class="text-sm lg:text-base text-[#1b1b18] dark:text-[#EDEDEC]">
-                        {{ __('This is a simple application to demonstrate localization and theming.') }}
-                    </p>
                     @if ($products->count())
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
                             @foreach ($products as $product)
@@ -115,7 +112,7 @@
                         </div>
                     @else
                         <p class="text-gray-500 dark:text-gray-400 mt-6">
-                            {{ __('No products available.') }}
+                            {{ __('No products available') }}
                         </p>
                     @endif
                 </div>

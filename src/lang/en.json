@@ -265,7 +265,6 @@
     "You're logged in!": "You're logged in!",
     "Your email address is unverified.": "Your email address is unverified.",
     "Welcome to PublikaApp!": "Welcome to PublikaApp!",
-    "This is a simple application to demonstrate localization and theming.": "This is a simple application to demonstrate localization and theming.",
     "Products": "Products",
     "Product": "Product",
     "Category": "Category",
@@ -300,5 +299,6 @@
     "City": "City",
     "Cities": "Cities",
     "Address": "Address",
-    "Phone": "Phone"
+    "Phone": "Phone",
+    "No products available": "No products available"
 }

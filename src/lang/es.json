@@ -265,7 +265,6 @@
     "You're logged in!": "¡Usted está conectado!",
     "Your email address is unverified.": "Su dirección de correo electrónico no está verificada.",
     "Welcome to PublikaApp!": "¡Bienvenid@ a PublikaApp!",
-    "This is a simple application to demonstrate localization and theming.": "Esta es una aplicación simple para demostrar la localización y el tema.",
     "Products": "Productos",
     "Product": "Producto",
     "Category": "Categoría",
@@ -300,5 +299,6 @@
     "City": "Ciudad",
     "Cities": "Ciudades",
     "Address": "Dirección",
-    "Phone": "Teléfono"
+    "Phone": "Teléfono",
+    "No products available": "No hay productos disponibles"
 }

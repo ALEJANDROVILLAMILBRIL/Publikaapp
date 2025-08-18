@@ -300,5 +300,8 @@
     "Cities": "Cities",
     "Address": "Address",
     "Phone": "Phone",
-    "No products available": "No products available"
+    "No products available": "No products available",
+    "Total Users": "Total Users",
+    "Total Products": "Total Products",
+    "Total Categories": "Total Categories"
 }

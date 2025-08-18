@@ -64,7 +64,11 @@
                 <div class="flex items-center py-4">
                     <!-- Logo -->
                     <div class="flex-shrink-0 mr-8">
-                        <h1 class="text-3xl font-bold text-black-600">PublikaApp</h1>
+                        <img
+                            src="{{ asset('images/LogoPA.png') }}"
+                            alt="Logo"
+                            class="w-20 h-20 fill-current text-gray-500 object-contain"
+                        />
                     </div>
 
                     <!-- Search Bar -->
@@ -193,7 +197,11 @@
             <div class="container mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between">
                 <!-- Brand -->
                 <div class="mb-4 md:mb-0 text-black font-semibold text-lg">
-                    PublikaApp
+                    <img
+                        src="{{ asset('images/LogoPA.png') }}"
+                        alt="Logo"
+                        class="w-20 h-20 fill-current text-gray-500 object-contain"
+                    />
                 </div>
 
                 <!-- Social Icons -->

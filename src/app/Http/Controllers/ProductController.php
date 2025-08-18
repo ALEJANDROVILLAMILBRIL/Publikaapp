@@ -12,9 +12,20 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('category')->get();
+        $query = Product::with('category');
+
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        if ($request->filled('created_at')) {
+            $query->whereDate('created_at', $request->created_at);
+        }
+
+        $products = $query->paginate(10);
+
         return view('admin.products.index', compact('products'));
     }
 
@@ -71,10 +82,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        
-    }
+    public function show(string $id) {}
 
     /**
      * Show the form for editing the specified resource.

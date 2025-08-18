@@ -15,24 +15,24 @@
                             </div>
                             <form method="GET" action="{{ route('admin.roles.index') }}">
                                 <div class="p-4">
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-6 gap-3 items-end">
                                         <!-- Campo Name -->
                                         <div class="flex flex-col w-full">
-                                            <label for="name" class="text-sm font-semibold text-gray-700 dark:text-gray-200">{{ __('Name') }}</label>
+                                            <label for="name" class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-1">{{ __('Name') }}</label>
                                             <input type="text" id="name" name="name" value="{{ request('name') }}"
                                             placeholder="{{ __('Enter name') }}"
-                                            class="mt-1 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm w-full">
+                                            class="px-3 py-2 text-sm rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm w-full">
                                         </div>
-                                    
+
                                         <!-- Campo Creation Date -->
                                         <div class="flex flex-col w-full">
-                                            <label for="created_at" class="text-sm font-semibold text-gray-700 dark:text-gray-200">{{ __('Creation date') }}</label>
+                                            <label for="created_at" class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-1">{{ __('Creation date') }}</label>
                                             <input type="date" id="created_at" name="created_at" value="{{ request('created_at') }}"
-                                            class="mt-1 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm w-full">
+                                            class="px-3 py-2 text-sm rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm w-full">
                                         </div>
-                                    
+
                                         <!-- Botones en una fila -->
-                                        <div class="flex gap-4 w-full sm:w-auto justify-between sm:justify-start md:col-span-2">
+                                        <div class="flex gap-2 w-full sm:w-auto justify-between sm:justify-start lg:col-span-1 xl:col-span-2">
                                             <button type="submit"
                                             class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-md shadow-md transition-all w-full sm:w-auto">
                                             {{ __('Search') }}
@@ -51,36 +51,72 @@
                     </div>
 
                     <div class="hidden md:block overflow-x-auto">
-                        <table class="table-fixed w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                        <table class="w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
                             <thead>
                                 <tr class="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200">
-                                    <th class="w-1/12 px-6 py-4 text-center text-sm font-semibold">ID</th>
-                                    <th class="w-4/12 px-6 py-4 text-center text-sm font-semibold">{{ __('Name') }}</th>
-                                    <th class="w-3/12 px-6 py-4 text-center text-sm font-semibold">{{ __('Created At') }}</th>
-                                    <th class="w-4/12 px-6 py-4 text-center text-sm font-semibold">{{ __('Actions') }}</th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fas fa-hashtag text-gray-400"></i>
+                                            ID
+                                        </div>
+                                    </th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fas fa-user-tag text-gray-400"></i>
+                                            {{ __('Name') }}
+                                        </div>
+                                    </th>
+                                    <th class="px-6 py-4 text-left text-sm font-semibold">
+                                        <div class="flex items-center gap-2">
+                                            <i class="fas fa-calendar text-gray-400"></i>
+                                            {{ __('Created At') }}
+                                        </div>
+                                    </th>
+                                    <th class="px-6 py-4 text-center text-sm font-semibold">
+                                        <div class="flex items-center justify-center gap-2">
+                                            <i class="fas fa-cogs text-gray-400"></i>
+                                            {{ __('Actions') }}
+                                        </div>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($roles as $rol)
-                                    <tr class="border-t border-gray-200 dark:border-gray-700">
-                                        <td class="px-6 py-4 text-center">{{ $rol->id }}</td>
-                                        <td class="px-6 py-4 text-center">{{ $rol->name }}</td>
-                                        <td class="px-6 py-4 text-center">{{ $rol->created_at->format('Y-m-d') }}</td>
+                                    <tr class="border-t border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                        <td class="px-6 py-4">
+                                            <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+                                                <span class="text-xs font-semibold text-blue-600 dark:text-blue-300">{{ $rol->id }}</span>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">{{ $rol->name }}</div>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <div class="flex items-center gap-2">
+                                                <i class="fas fa-calendar-alt text-gray-400 text-xs"></i>
+                                                <span class="text-sm text-gray-500 dark:text-gray-400">{{ $rol->created_at->format('Y-m-d') }}</span>
+                                            </div>
+                                        </td>
                                         <td class="px-6 py-4 text-center">
                                             <div class="flex justify-center space-x-2">
                                                 <a href="{{ route('admin.roles.show', $rol->slug) }}"
-                                                    class="inline-block bg-blue-600 hover:bg-blue-700 text-white dark:text-gray-100 text-sm font-semibold px-3 py-2 rounded"
+                                                    class="inline-flex items-center px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition-all"
                                                     title="{{ __('View') }}"
                                                     aria-label="{{ __('View') }}">
-                                                    <i class="fas fa-eye"></i>
+                                                    <i class="fas fa-eye mr-1"></i>
                                                 </a>
                                             </div>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="4" class="px-6 py-6 text-center text-gray-500 dark:text-gray-400">
-                                            {{ __('No data available in this table') }}
+                                        <td colspan="4" class="px-6 py-12 text-center">
+                                            <div class="flex flex-col items-center gap-3">
+                                                <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
+                                                    <i class="fas fa-inbox text-2xl text-gray-400"></i>
+                                                </div>
+                                                <p class="text-gray-500 dark:text-gray-400 font-medium">{{ __('No data available in this table') }}</p>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforelse
@@ -92,35 +128,34 @@
                     <div class="md:hidden">
                         @forelse ($roles as $rol)
                             <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-4 rounded-lg shadow mb-3">
-                                <div class="space-y-2 text-sm">
-                                    <div class="flex items-start space-x-2">
-                                        <span class="text-gray-500 dark:text-gray-400 font-medium w-24">{{ __('ID') }}:</span>
-                                        <span class="text-gray-800 dark:text-gray-100 flex-1">{{ $rol->id }}</span>
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+                                            <span class="text-xs font-semibold text-blue-600 dark:text-blue-300">{{ $rol->id }}</span>
+                                        </div>
+                                        <h3 class="font-semibold text-gray-900 dark:text-gray-100">{{ $rol->name }}</h3>
                                     </div>
-                                    <div class="flex items-start space-x-2">
-                                        <span class="text-gray-500 dark:text-gray-400 font-medium w-24">{{ __('Name') }}:</span>
-                                        <span class="text-gray-800 dark:text-gray-100 flex-1">{{ $rol->name }}</span>
-                                    </div>
-                                    <div class="flex items-start space-x-2">
-                                        <span class="text-gray-500 dark:text-gray-400 font-medium w-24">{{ __('Created At') }}:</span>
-                                        <span class="text-gray-800 dark:text-gray-100 flex-1">{{ $rol->created_at->format('Y-m-d') }}</span>
-                                    </div>
-                                    <div class="flex pt-2">
-                                        <a href="{{ route('admin.roles.show', $rol->slug) }}"
+                                    <a href="{{ route('admin.roles.show', $rol->slug) }}"
                                         class="inline-flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold px-3 py-1.5 rounded">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                    </div>
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                </div>
+                                <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span>{{ __('Created At') }}: {{ $rol->created_at->format('Y-m-d') }}</span>
                                 </div>
                             </div>
                         @empty
-                            <div class="text-center text-gray-500 dark:text-gray-400">
-                                {{ __('No data available in this table') }}
+                            <div class="text-center py-12">
+                                <div class="flex flex-col items-center gap-3">
+                                    <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
+                                        <i class="fas fa-inbox text-2xl text-gray-400"></i>
+                                    </div>
+                                    <p class="text-gray-500 dark:text-gray-400 font-medium">{{ __('No data available in this table') }}</p>
+                                </div>
                             </div>
                         @endforelse
                     </div>
-
-                    
                     <div class="mt-4">
                         {{ $roles->appends(request()->except('page'))->links() }}
                     </div>

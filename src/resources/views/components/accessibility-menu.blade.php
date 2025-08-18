@@ -1,5 +1,16 @@
+<!-- Panel de Accesibilidad -->
 <div class="fixed top-1/2 right-0 transform -translate-y-1/2 z-[9999]">
-    <div class="bg-blue-600 rounded-l-xl p-2 flex flex-col gap-2 shadow-2xl max-h-[80vh] overflow-y-auto">
+    <!-- Botón toggle para móvil -->
+    <div class="md:hidden bg-blue-600 rounded-l-xl p-2 shadow-2xl">
+        <button onclick="toggleAccessibilityMenu()"
+                class="w-8 h-8 bg-white text-blue-600 text-sm font-bold rounded-md shadow border border-gray-200 flex items-center justify-center"
+                title="Menú de Accesibilidad">
+            <i class="fa-solid fa-universal-access"></i>
+        </button>
+    </div>
+
+    <!-- Panel de accesibilidad -->
+    <div id="accessibilityPanel" class="hidden md:flex bg-blue-600 rounded-l-xl p-2 flex-col gap-2 shadow-2xl max-h-[80vh] overflow-y-auto">
         <button onclick="adjustFontSize(1)" title="Aumentar tamaño"
             class="w-8 h-8 bg-white text-blue-600 font-bold rounded-md shadow border border-gray-200 text-xs">A+</button>
         <button onclick="adjustFontSize(-1)" title="Disminuir tamaño"
@@ -18,223 +29,73 @@
 </div>
 
 <script>
-    let fontSize = parseInt(localStorage.getItem('fontSize')) || 100;
-    const contrastEnabled = localStorage.getItem('contrast') === 'true';
-    const darkModeEnabled = localStorage.getItem('darkMode') === 'true';
-    console.log('Dark Mode:', darkModeEnabled);
+    let fontSize = parseInt(sessionStorage.getItem('fontSize')) || 100;
+    const contrastEnabled = sessionStorage.getItem('contrast') === 'true';
+    const darkModeEnabled = sessionStorage.getItem('darkMode') === 'true';
 
-
+    // Inicializar configuraciones
     document.documentElement.style.fontSize = fontSize + '%';
-    if (contrastEnabled) document.body.classList.add('contrast');
-    if (darkModeEnabled) {
-        document.documentElement.classList.add('dark');
-    } else {
-        document.documentElement.classList.remove('dark');
+    if (contrastEnabled) document.documentElement.style.filter = 'invert(1) contrast(1.5) brightness(0.9)';
+    if (darkModeEnabled) document.documentElement.style.filter = 'invert(1) hue-rotate(180deg)';
+
+    function toggleAccessibilityMenu() {
+        const panel = document.getElementById('accessibilityPanel');
+        panel.classList.toggle('hidden');
+        panel.classList.toggle('flex');
     }
+
+    // Cerrar el menú cuando se hace clic fuera de él en móvil
+    document.addEventListener('click', function(event) {
+        const panel = document.getElementById('accessibilityPanel');
+        const toggleButton = event.target.closest('button[onclick="toggleAccessibilityMenu()"]');
+        const isInsidePanel = event.target.closest('#accessibilityPanel');
+
+        if (!toggleButton && !isInsidePanel && window.innerWidth < 768) {
+            panel.classList.add('hidden');
+            panel.classList.remove('flex');
+        }
+    });
 
     function adjustFontSize(change) {
         fontSize = Math.min(150, Math.max(80, fontSize + change * 10));
         document.documentElement.style.fontSize = fontSize + '%';
-        localStorage.setItem('fontSize', fontSize);
-        document.body.style.overflowY = 'auto';
+        sessionStorage.setItem('fontSize', fontSize);
     }
 
     function toggleContrast() {
-        document.body.classList.toggle('contrast');
-        localStorage.setItem('contrast', document.body.classList.contains('contrast'));
+        const currentFilter = document.documentElement.style.filter;
+        if (currentFilter.includes('invert(1) contrast(1.5)')) {
+            document.documentElement.style.filter = '';
+            sessionStorage.setItem('contrast', 'false');
+        } else {
+            document.documentElement.style.filter = 'invert(1) contrast(1.5) brightness(0.9)';
+            sessionStorage.setItem('contrast', 'true');
+        }
     }
 
     function toggleDarkMode() {
-        document.documentElement.classList.toggle('dark');
-        const darkModeState = document.documentElement.classList.contains('dark');
-        localStorage.setItem('darkMode', darkModeState);
+        const currentFilter = document.documentElement.style.filter;
+        if (currentFilter.includes('hue-rotate(180deg)')) {
+            document.documentElement.style.filter = '';
+            sessionStorage.setItem('darkMode', 'false');
+        } else {
+            document.documentElement.style.filter = 'invert(1) hue-rotate(180deg)';
+            sessionStorage.setItem('darkMode', 'true');
+        }
     }
 
     function resetAccessibility() {
         fontSize = 100;
         document.documentElement.style.fontSize = '100%';
-        document.body.classList.remove('contrast');
-        document.documentElement.classList.remove('dark');
-        document.body.style.overflowY = 'auto';
-        localStorage.removeItem('fontSize');
-        localStorage.removeItem('contrast');
-        localStorage.removeItem('darkMode');
+        document.documentElement.style.filter = '';
+        sessionStorage.removeItem('fontSize');
+        sessionStorage.removeItem('contrast');
+        sessionStorage.removeItem('darkMode');
     }
 </script>
 
 <style>
-    .contrast {
-        background-color: #000 !important;
-        color: #ff0 !important;
-    }
-
-    .contrast body,
-    .contrast header,
-    .contrast footer,
-    .contrast main,
-    .contrast section,
-    .contrast article,
-    .contrast aside,
-    .contrast nav,
-    .contrast div,
-    .contrast span,
-    .contrast p,
-    .contrast h1,
-    .contrast h2,
-    .contrast h3,
-    .contrast h4,
-    .contrast h5,
-    .contrast h6,
-    .contrast ul,
-    .contrast ol,
-    .contrast li,
-    .contrast table,
-    .contrast tr,
-    .contrast th,
-    .contrast td,
-    .contrast a,
-    .contrast button,
-    .contrast input,
-    .contrast select,
-    .contrast textarea,
-    .contrast label,
-    .contrast fieldset,
-    .contrast legend,
-    .contrast option,
-    .contrast optgroup,
-    .contrast details,
-    .contrast summary,
-    .contrast blockquote,
-    .contrast strong,
-    .contrast em,
-    .contrast u,
-    .contrast mark,
-    .contrast del,
-    .contrast sub,
-    .contrast sup,
-    .contrast b,
-    .contrast i,
-    .contrast small,
-    .contrast big,
-    .contrast address,
-    .contrast hr,
-    .contrast img,
-    .contrast svg,
-    .contrast iframe,
-    .contrast pre,
-    .contrast code,
-    .contrast input[type="text"],
-    .contrast input[type="password"],
-    .contrast input[type="email"],
-    .contrast input[type="tel"],
-    .contrast input[type="url"],
-    .contrast input[type="number"],
-    .contrast input[type="date"],
-    .contrast input[type="datetime-local"],
-    .contrast input[type="month"],
-    .contrast input[type="week"],
-    .contrast input[type="time"],
-    .contrast input[type="search"],
-    .contrast input[type="range"],
-    .contrast input[type="color"],
-    .contrast button,
-    .contrast textarea {
-        color: #0ff !important;
-        background-color: #000 !important;
-        border-color: #ff0 !important;
-    }
-
-    .contrast img {
-        border: 2px solid #ff0 !important;
-    }
-
-    .contrast svg {
-        fill: #ff0 !important;
-    }
-
-    .contrast hr {
-        border-color: #ff0 !important;
-    }
-
-    .contrast pre,
-    .contrast code {
-        background-color: #111 !important;
-        color: #0ff !important;
-        border: 1px solid #ff0 !important;
-    }
-
-    .contrast a:hover,
-    .contrast button:hover,
-    .contrast input:hover,
-    .contrast select:hover,
-    .contrast textarea:hover,
-    .contrast label:hover {
-        background-color: #222 !important;
-        color: #0ff !important;
-        border-color: #ff0 !important;
-    }
-
-    .contrast a:focus,
-    .contrast button:focus,
-    .contrast input:focus,
-    .contrast select:focus,
-    .contrast textarea:focus {
-        outline: 2px solid #0ff !important;
-        outline-offset: 2px;
-        background-color: #111 !important;
-        color: #0ff !important;
-        border-color: #0ff !important;
-    }
-
-    .contrast a,
-    .contrast button {
-        border: 2px solid #ff0 !important;
-        background-color: #000 !important;
-        color: #0ff !important;
-    }
-
-    .contrast a:hover,
-    .contrast button:hover {
-        background-color: #111 !important;
-        color: #fff !important;
-        border-color: #0ff !important;
-    }
-
-    .contrast a:focus,
-    .contrast button:focus {
-        outline: 3px solid #0ff !important;
-        outline-offset: 2px;
-        border-color: #0ff !important;
-        background-color: #111 !important;
-        color: #fff !important;
-    }
-
-    .contrast .text-blue-600 {
-        color: #0ff !important;
-    }
-
-    .contrast .bg-white {
-        background-color: #000 !important;
-    }
-
-    .contrast .border-gray-200 {
-        border-color: #ff0 !important;
-    }
-
-    .contrast .shadow,
-    .contrast .shadow-2xl {
-        box-shadow: none !important;
-    }
-
-    .fixed {
-        position: fixed;
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
-        z-index: 9999;
-    }
-
-    .max-h-[80vh] {
-        max-height: 80vh;
+    html {
+        transition: filter 0.3s ease;
     }
 </style>

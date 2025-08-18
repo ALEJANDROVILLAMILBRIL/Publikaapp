@@ -29,10 +29,23 @@ class ProductController extends Controller
         return view('admin.products.index', compact('products'));
     }
 
-    public function homepage()
+    public function homepage(Request $request)
     {
-        $products = Product::with('category')->get();
-        return view('welcome', compact('products'));
+        $search = $request->input('search');
+
+        if (empty($search)) {
+            $products = Product::with('category:id,name')
+                ->latest()
+                ->paginate(12);
+        } else {
+            $products = Product::with('category:id,name')
+                ->where('name', 'LIKE', "%{$search}%")
+                ->latest()
+                ->paginate(12)
+                ->withQueryString();
+        }
+
+        return view('welcome', compact('products', 'search'));
     }
 
     /**

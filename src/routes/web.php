@@ -49,7 +49,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('users', UserController::class);
 });
 
-Route::get('/', [ProductController::class, 'homepage']);
+Route::get('/', [ProductController::class, 'homepage'])->name('homepage');
 
 Route::get('lang/{lang}', [LanguageController::class, 'switch'])->name('lang.switch');
 

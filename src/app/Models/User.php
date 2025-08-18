@@ -23,6 +23,8 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
+        'address',
+        'phone',
     ];
 
     /**
@@ -53,6 +55,11 @@ class User extends Authenticatable
         static::creating(function ($user) {
             $user->slug = Str::slug($user->name);
         });
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 
     public function role()

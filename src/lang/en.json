@@ -253,6 +253,7 @@
     "Use Proxy": "Use Proxy",
     "User": "User",
     "Users": "Users",
+    "New User": "New User",
     "Variant Also Negotiates": "Variant Also Negotiates",
     "Verify Email Address": "Verify Email Address",
     "View": "View",
@@ -292,5 +293,6 @@
     "Creation date": "Creation date",
     "Search Section": "Search Section",
     "Enter name": "Enter name",
+    "Enter role": "Enter role",
     "Clear": "Clear"
 }

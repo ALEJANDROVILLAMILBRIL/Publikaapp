@@ -42,7 +42,7 @@
         <!-- Department -->
         <div class="mt-4">
             <x-input-label for="region_id" :value="__('Department')" />
-            <select id="region_id" name="region_id" class="block mt-1 w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 p-2" required>
+            <select id="region_id" name="region_id" class="block mt-1 w-full rounded-md border-gray-300" required>
                 <option value="">{{ __('- Select -') }}</option>
                 @foreach($regions as $region)
                     <option value="{{ $region->id }}" @selected(old('region_id') == $region->id)>{{ $region->name }}</option>
@@ -54,7 +54,7 @@
         <!-- City -->
         <div class="mt-4">
             <x-input-label for="city_id" :value="__('City')" />
-            <select id="city_id" name="city_id" class="block mt-1 w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100 p-2" required>
+            <select id="city_id" name="city_id" class="block mt-1 w-full rounded-md border-gray-300 p-2" required>
                 <option value="">{{ __('- Select -') }}</option>
             </select>
             <x-input-error :messages="$errors->get('city_id')" class="mt-2" />
@@ -75,7 +75,7 @@
         </div>
 
         <div class="flex items-center justify-end mt-4">
-            <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
+            <a class="underline text-sm text-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">
                 {{ __('Already registered?') }}
             </a>
 

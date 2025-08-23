@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>PublikaApp</title>
+        <title>{{ config('app.name', 'PublikaApp') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -33,6 +33,10 @@
                                     {{ __('Dashboard') }}
                                 </a>
                             @else
+                                <a href="{{ route('welcome') }}"
+                                   class="text-gray-800 hover:text-gray-900">
+                                    {{ __('Home') }}
+                                </a>
                                 <a href="{{ route('login') }}"
                                    class="text-gray-800 hover:text-gray-900">
                                     {{ __('Log in') }}
@@ -48,12 +52,12 @@
 
                         <div class="flex items-center space-x-2">
                             <a href="{{ route('lang.switch', 'en') }}"
-                               class="{{ app()->getLocale() === 'en' ? 'font-bold' : '' }} text-gray-800 hover:text-blue-600">
+                               class="{{ app()->getLocale() === 'en' ? 'font-bold' : '' }} text-gray-800">
                                EN
                             </a>
                             <span class="text-gray-600">|</span>
                             <a href="{{ route('lang.switch', 'es') }}"
-                               class="{{ app()->getLocale() === 'es' ? 'font-bold' : '' }} text-gray-800 hover:text-blue-600">
+                               class="{{ app()->getLocale() === 'es' ? 'font-bold' : '' }} text-gray-800">
                                ES
                             </a>
                         </div>

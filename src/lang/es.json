@@ -361,5 +361,6 @@
     "Pending": "Pendiente",
     "Failed": "Fallido",
     "Rejected": "Rechazada",
-    "Cash": "Efectivo"
+    "Cash": "Efectivo",
+    "Notes": "Notas"
 }

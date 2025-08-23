@@ -361,5 +361,6 @@
     "Pending": "Pending",
     "Failed": "Failed",
     "Rejected": "Rejected",
-    "Cash": "Cash"
+    "Cash": "Cash",
+    "Notes": "Notes"
 }

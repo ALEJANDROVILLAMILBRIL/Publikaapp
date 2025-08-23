@@ -55,6 +55,17 @@
                                 {{ __('Order status:') }} {{ $orderStatuses[$order->order_status] ?? $order->order_status }}
                             </p>
 
+                            @if($order->notes)
+                                <div class="mt-4 p-3 bg-gray-100 dark:bg-gray-800 border-l-4 border-blue-500 rounded shadow-sm flex items-start gap-2">
+                                    <svg class="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h8M8 12h8m-6 5h6"/>
+                                    </svg>
+                                    <div class="text-sm text-gray-700 dark:text-gray-200">
+                                        <span class="font-semibold">{{ __('Notes') }}:</span> {{ $order->notes }}
+                                    </div>
+                                </div>
+                            @endif
+
                             {{-- Items --}}
                             <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
                                 @foreach($order->orderItems as $item)

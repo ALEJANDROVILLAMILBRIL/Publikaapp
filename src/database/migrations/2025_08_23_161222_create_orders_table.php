@@ -23,6 +23,9 @@ return new class extends Migration
             $table->json('payment_details')->nullable();
             $table->enum('order_status', ['pending', 'processing', 'shipped', 'delivered', 'cancelled'])->default('pending');
             $table->text('notes')->nullable();
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
+            $table->decimal('altitude', 8, 2)->nullable();
             $table->timestamps();
         });
     }

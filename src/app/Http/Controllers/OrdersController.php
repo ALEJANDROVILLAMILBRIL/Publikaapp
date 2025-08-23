@@ -18,6 +18,15 @@ class OrdersController extends Controller
         return view('orders.index', compact('orders'));
     }
 
+    public function ordersSeller()
+    {
+        $orders = Order::with('orderItems.product', 'user')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('seller.orders.index', compact('orders'));
+    }
+
     public function show(Order $order)
     {
         if ($order->user_id !== Auth::id()) {

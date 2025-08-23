@@ -31,13 +31,18 @@
                         <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
                             {{ __('Users') }}
                         </x-nav-link>
+                    @elseif (Auth::user() && Auth::user()->role->name === 'customer')
+                        <x-nav-link :href="route('carts.index')" :active="request()->routeIs('carts.*')">
+                            {{ __('My Cart') }}
+                        </x-nav-link>
+                        <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.*')">
+                            {{ __('My Orders') }}
+                        </x-nav-link>
+                    @elseif (Auth::user() && Auth::user()->role->name === 'seller')
+                        <x-nav-link :href="route('seller.orders.ordersSeller')" :active="request()->routeIs('seller.orders.*')">
+                            {{ __('Orders') }}
+                        </x-nav-link>
                     @endif
-                    <x-nav-link :href="route('carts.index')" :active="request()->routeIs('carts.*')">
-                        {{ __('My Cart') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.*')">
-                        {{ __('My Orders') }}
-                    </x-nav-link>
                 </div>
             </div>
 

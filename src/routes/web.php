@@ -22,7 +22,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth', 'role:admin,customer'])->group(function () {
+Route::middleware(['auth', 'role:admin,customer,seller'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
 
@@ -52,6 +52,10 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('products', ProductController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
+});
+
+Route::middleware(['auth', 'role:seller'])->prefix('seller')->name('seller.')->group(function () {
+    Route::get('/orders', [OrdersController::class, 'ordersSeller'])->name('orders.ordersSeller');
 });
 
 Route::middleware(['auth'])->group(function () {

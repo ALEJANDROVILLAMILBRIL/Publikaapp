@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -45,7 +47,9 @@ class ProductController extends Controller
                 ->withQueryString();
         }
 
-        return view('welcome', compact('products', 'search'));
+        $cartCount = Auth::id() ? Cart::where('user_id', Auth::id())->count() : 0;
+
+        return view('welcome', compact('products', 'search', 'cartCount'));
     }
 
     /**

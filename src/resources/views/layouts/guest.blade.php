@@ -31,6 +31,10 @@
                                 {{ __('Dashboard') }}
                             </a>
                         @else
+                            <a href="{{ url('/') }}"
+                                class="text-gray-800 hover:text-gray-900">
+                                {{ __('Home') }}
+                            </a>
                             <a href="{{ route('login') }}"
                                 class="text-gray-800 hover:text-gray-900">
                                 {{ __('Log in') }}

@@ -95,9 +95,14 @@
 
                     <!-- Cart -->
                     <div class="flex items-center ml-4">
-                        <a href="#" class="flex items-center text-gray-800 hover:text-gray-900">
+                        <a href="#" class="flex items-center text-gray-800 hover:text-gray-900 relative">
                             <i class="fas fa-shopping-cart text-xl mr-2"></i>
-                            <span class="hidden md:block">{{ __('Cart') }}</span>
+
+                            @if($cartCount > 0)
+                                <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                                    {{ $cartCount }}
+                                </span>
+                            @endif
                         </a>
                     </div>
                 </div>

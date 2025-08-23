@@ -43,8 +43,8 @@ class CartController extends Controller
         $quantity = $request->input('quantity', 1);
 
         $cart = Cart::where('user_id', $userId)
-                    ->where('product_id', $productId)
-                    ->first();
+            ->where('product_id', $productId)
+            ->first();
 
         if ($cart) {
             $cart->quantity += $quantity;
@@ -61,7 +61,7 @@ class CartController extends Controller
             'resource' => ucfirst(__('carts.singular'))
         ]));
 
-        return redirect()->refresh();
+        return redirect()->back();
     }
 
     /**
@@ -85,7 +85,26 @@ class CartController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $cart = Cart::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+        $action = $request->input('action');
+        $quantity = (int) $request->input('quantity');
+
+        if ($action === 'increase') {
+            $cart->quantity++;
+        } elseif ($action === 'decrease') {
+            $cart->quantity = max(1, $cart->quantity - 1);
+        } elseif ($action === 'set_quantity') {
+            $cart->quantity = max(1, $quantity);
+        } else {
+            $cart->quantity = max(1, $quantity);
+        }
+
+        $cart->save();
+        flash()->success(__('messages.updated_successfully', [
+            'resource' => ucfirst(__('carts.singular'))
+        ]));
+
+        return redirect()->back();
     }
 
     /**
@@ -93,6 +112,13 @@ class CartController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $cart = Cart::where('id', $id)->where('user_id', Auth::id())->firstOrFail();
+        $cart->delete();
+
+        flash()->success(__('messages.deleted_successfully', [
+            'resource' => ucfirst(__('carts.singular'))
+        ]));
+
+        return redirect()->back();
     }
 }

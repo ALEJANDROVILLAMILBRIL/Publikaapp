@@ -24,9 +24,9 @@
                             <div class="flex items-center gap-6 border-b border-gray-200 dark:border-gray-700 pb-6">
                                 <!-- Imagen -->
                                 <div class="w-28 h-28 flex-shrink-0 overflow-hidden rounded-lg shadow">
-                                    <img src="{{ $cart->product->image_url ?? asset('storage/' . $cart->product->image) }}"
+                                    <img src="{{ $cart->product->image_url ? asset('storage/' . $cart->product->image) : asset('images/products/product-image.svg') }}"
                                          alt="{{ $cart->product->name }}"
-                                         class="w-full h-full object-cover">
+                                         width="112" height="112">
                                 </div>
 
                                 <!-- Detalles -->
@@ -44,7 +44,8 @@
 
                                 <!-- Cantidad -->
                                 <div class="flex items-center gap-3">
-                                    <form action="{{ route('carts.update', $cart->id) }}" method="POST" class="flex items-center gap-2">
+                                    <form action="{{ route('carts.update', $cart->id) }}" method="POST"
+                                        class="flex items-center gap-2 cart-update-form">
                                         @csrf
                                         @method('PUT')
                                         <button type="submit" name="action" value="decrease"
@@ -52,11 +53,13 @@
                                             -
                                         </button>
                                         <input type="text" name="quantity" value="{{ $cart->quantity }}"
-                                            class="w-14 text-center border rounded dark:bg-gray-800 dark:text-white">
+                                            class="w-14 text-center border rounded dark:bg-gray-800 dark:text-white quantity-input">
                                         <button type="submit" name="action" value="increase"
                                             class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded hover:bg-gray-300 dark:hover:bg-gray-600 font-bold">
                                             +
                                         </button>
+                                        {{-- Botón para cuando se presiona ENTER con acción específica --}}
+                                        <button type="submit" name="action" value="set_quantity" class="hidden" aria-hidden="true"></button>
                                     </form>
                                 </div>
 
@@ -74,13 +77,14 @@
 
                     <!-- Total -->
                     <div class="mt-8 flex justify-between items-center">
-                        <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+                        <h3 class="text-2xl font-bold text-gray-800">
                             {{ __('Total') }}:
-                            <span class="text-blue-600 dark:text-blue-400">
+                            <span class="text-blue-600">
                                 ${{ number_format($carts->sum(fn($c) => $c->product->price * $c->quantity), 0, ',', '.') }}
                             </span>
                         </h3>
-                        <a href="#" class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold shadow">
+                        <a href="#"
+                            class="bg-blue-500 text-white px-4 py-2 rounded-md font-medium shadow hover:bg-blue-600">
                             {{ __('Proceed to Checkout') }}
                         </a>
                     </div>
@@ -88,4 +92,29 @@
             </div>
         </div>
     </div>
+    @section('script')
+        <script>
+        document.querySelectorAll('.quantity-input').forEach(input => {
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+
+                    const form = this.closest('form');
+                    const setQuantityButton = form.querySelector('button[name="action"][value="set_quantity"]');
+
+                    if (setQuantityButton) {
+                        setQuantityButton.click();
+                    } else {
+                        const hiddenInput = document.createElement('input');
+                        hiddenInput.type = 'hidden';
+                        hiddenInput.name = 'action';
+                        hiddenInput.value = 'set_quantity';
+                        form.appendChild(hiddenInput);
+                        form.submit();
+                    }
+                }
+            });
+        });
+        </script>
+    @endsection
 </x-app-layout>

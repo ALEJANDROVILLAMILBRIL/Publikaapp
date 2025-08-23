@@ -18,7 +18,11 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    @if (Auth::user() && Auth::user()->role->name === 'admin')
+                    @php
+                        $role = Auth::user()->role->name ?? null;
+                    @endphp
+
+                    @if ($role === 'admin')
                         <x-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.*')">
                             {{ __('Categories') }}
                         </x-nav-link>
@@ -31,16 +35,21 @@
                         <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
                             {{ __('Users') }}
                         </x-nav-link>
-                    @elseif (Auth::user() && Auth::user()->role->name === 'customer')
+                        <x-nav-link :href="route('admin.orders.index')" :active="request()->routeIs('admin.orders.*')">
+                            {{ __('Orders') }}
+                        </x-nav-link>
+
+                    @elseif ($role === 'seller')
+                        <x-nav-link :href="route('seller.orders.index')" :active="request()->routeIs('seller.orders.*')">
+                            {{ __('Orders') }}
+                        </x-nav-link>
+
+                    @elseif ($role === 'customer')
                         <x-nav-link :href="route('carts.index')" :active="request()->routeIs('carts.*')">
                             {{ __('My Cart') }}
                         </x-nav-link>
                         <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.*')">
                             {{ __('My Orders') }}
-                        </x-nav-link>
-                    @elseif (Auth::user() && Auth::user()->role->name === 'seller')
-                        <x-nav-link :href="route('seller.orders.ordersSeller')" :active="request()->routeIs('seller.orders.*')">
-                            {{ __('Orders') }}
                         </x-nav-link>
                     @endif
                 </div>

@@ -18,13 +18,13 @@ class OrdersController extends Controller
         return view('orders.index', compact('orders'));
     }
 
-    public function ordersSeller()
+    public function ordersIndex()
     {
         $orders = Order::with('orderItems.product', 'user')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return view('seller.orders.index', compact('orders'));
+        return view('orders.management.index', compact('orders'));
     }
 
     public function updateOrderStatus(Request $request, Order $order)

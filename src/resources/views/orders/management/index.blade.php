@@ -15,6 +15,25 @@
                     <p class="text-lg text-gray-600 dark:text-gray-400">{{ __('No orders yet') }}</p>
                 </div>
             @else
+                @php
+                    $paymentMethods = [
+                        'cash' => __('Efectivo'),
+                        'paypal' => 'PayPal',
+                        'credit_card' => __('Tarjeta de crédito'),
+                    ];
+
+                    $paymentStatuses = [
+                        'pending' => __('Pendiente'),
+                        'paid' => __('Pagado'),
+                        'failed' => __('Fallido'),
+                    ];
+
+                    $orderStatuses = [
+                        'pending' => __('Pendiente'),
+                        'accepted' => __('Aceptada'),
+                        'rejected' => __('Rechazada'),
+                    ];
+                @endphp
                 @foreach($orders as $order)
                     <div class="bg-white dark:bg-gray-900 shadow-lg sm:rounded-xl p-6 flex flex-col md:flex-row md:justify-between md:items-start gap-4">
 
@@ -24,9 +43,17 @@
                                 {{ __('Order #:') }} {{ $order->order_number }}
                             </h3>
                             <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('Customer:') }} {{ $order->user->name }}</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('Payment method:') }} {{ $order->payment_method }}</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('Payment status:') }} {{ $order->payment_status }}</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('Order status:') }} {{ $order->order_status }}</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">
+                                {{ __('Payment method:') }} {{ $paymentMethods[$order->payment_method] ?? $order->payment_method }}
+                            </p>
+
+                            <p class="text-sm text-gray-500 dark:text-gray-400">
+                                {{ __('Payment status:') }} {{ $paymentStatuses[$order->payment_status] ?? $order->payment_status }}
+                            </p>
+
+                            <p class="text-sm text-gray-500 dark:text-gray-400">
+                                {{ __('Order status:') }} {{ $orderStatuses[$order->order_status] ?? $order->order_status }}
+                            </p>
 
                             {{-- Items --}}
                             <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">

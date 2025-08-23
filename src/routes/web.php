@@ -54,9 +54,17 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('users', UserController::class);
 });
 
-Route::middleware(['auth', 'role:seller'])->prefix('seller')->name('seller.')->group(function () {
-    Route::get('/orders', [OrdersController::class, 'ordersSeller'])->name('orders.ordersSeller');
-    Route::post('/orders/{order}/update', [OrdersController::class, 'updateOrderStatus'])->name('orders.updateStatus');
+Route::middleware(['auth', 'role:seller,admin'])->group(function () {
+
+    Route::prefix('seller')->name('seller.')->group(function () {
+        Route::get('/orders', [OrdersController::class, 'ordersIndex'])->name('orders.index');
+        Route::post('/orders/{order}/update', [OrdersController::class, 'updateOrderStatus'])->name('orders.updateStatus');
+    });
+
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::get('/orders', [OrdersController::class, 'ordersIndex'])->name('orders.index');
+        Route::post('/orders/{order}/update', [OrdersController::class, 'updateOrderStatus'])->name('orders.updateStatus');
+    });
 });
 
 Route::middleware(['auth'])->group(function () {
@@ -78,4 +86,4 @@ Route::get('/', [ProductController::class, 'homepage'])->name('homepage');
 
 Route::get('lang/{lang}', [LanguageController::class, 'switch'])->name('lang.switch');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

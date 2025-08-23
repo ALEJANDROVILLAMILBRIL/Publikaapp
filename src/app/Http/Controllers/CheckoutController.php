@@ -35,7 +35,10 @@ class CheckoutController extends Controller
     {
         $request->validate([
             'payment_method' => 'required|in:cash,paypal',
-            'notes' => 'nullable|string|max:500'
+            'notes' => 'nullable|string|max:500',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
+            'altitude' => 'nullable|numeric'
         ]);
 
         $carts = Cart::where('user_id', Auth::id())
@@ -64,7 +67,10 @@ class CheckoutController extends Controller
                 'payment_method' => $request->payment_method,
                 'payment_status' => $request->payment_method === 'cash' ? 'pending' : 'pending',
                 'order_status' => 'pending',
-                'notes' => $request->notes
+                'notes' => $request->notes,
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+                'altitude' => $request->altitude
             ]);
 
             foreach ($carts as $cart) {

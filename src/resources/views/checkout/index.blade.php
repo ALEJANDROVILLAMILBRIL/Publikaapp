@@ -117,6 +117,9 @@
                            class="flex-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-6 py-3 rounded-lg font-medium text-center hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
                             {{ __('Back to Cart') }}
                         </a>
+                        <input type="hidden" name="latitude" id="latitude">
+                        <input type="hidden" name="longitude" id="longitude">
+                        <input type="hidden" name="altitude" id="altitude">
                         <button type="submit"
                                 class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
                             {{ __('Place Order') }}
@@ -132,6 +135,16 @@
         document.addEventListener("DOMContentLoaded", function() {
             const options = document.querySelectorAll(".payment-option");
             const selectedMethodText = document.getElementById('selected-method');
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    document.getElementById('latitude').value = position.coords.latitude;
+                    document.getElementById('longitude').value = position.coords.longitude;
+                    document.getElementById('altitude').value = position.coords.altitude || 0;
+                }, function(error) {
+                    console.warn("Error getting location: ", error);
+                });
+            }
 
             function resetAllOptions() {
                 options.forEach(opt => {
@@ -198,6 +211,7 @@
                     selectOption(cashLabel);
                 }
             }
+
         });
     </script>
     @endsection

@@ -26,10 +26,22 @@
                 <div class="flex space-x-4">
                     @if (Route::has('login'))
                         @auth
-                            <a href="{{ url('/dashboard') }}"
-                                class="text-gray-800 hover:text-gray-900 font-medium">
-                                {{ __('Dashboard') }}
-                            </a>
+                            @if (Auth::user()->role->name === 'admin')
+                                <a href="{{ url('/dashboard') }}"
+                                    class="text-gray-800 hover:text-gray-900 font-medium">
+                                    {{ __('Dashboard') }}
+                                </a>
+                            @elseif (Auth::user()->role->name === 'customer')
+                                <a href="{{ route('orders.index') }}"
+                                    class="text-gray-800 hover:text-gray-900 font-medium">
+                                    {{ __('My Orders') }}
+                                </a>
+                            @elseif (Auth::user()->role->name === 'seller')
+                                <a href="{{ route('seller.orders.index') }}"
+                                    class="text-gray-800 hover:text-gray-900 font-medium">
+                                    {{ __('Orders') }}
+                                </a>
+                            @endif
                         @else
                             <a href="{{ url('/') }}"
                                 class="text-gray-800 hover:text-gray-900">
@@ -124,7 +136,7 @@
 
             <!-- Copyright -->
             <div class="mt-4 md:mt-0 text-black text-sm">
-                &copy; {{ date('Y') }} PublikaApp. {{ __('All rights reserved.') }}.
+                &copy; {{ date('Y') }} PublikaApp. {{ __('All rights reserved.') }}
             </div>
         </div>
     </footer>

@@ -25,7 +25,6 @@ return new class extends Migration
             $table->text('notes')->nullable();
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 10, 7)->nullable();
-            $table->decimal('altitude', 8, 2)->nullable();
             $table->timestamps();
         });
     }

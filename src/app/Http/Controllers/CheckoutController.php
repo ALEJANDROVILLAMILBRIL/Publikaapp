@@ -37,8 +37,7 @@ class CheckoutController extends Controller
             'payment_method' => 'required|in:cash,paypal',
             'notes' => 'nullable|string|max:500',
             'latitude' => 'nullable|numeric',
-            'longitude' => 'nullable|numeric',
-            'altitude' => 'nullable|numeric'
+            'longitude' => 'nullable|numeric'
         ]);
 
         $carts = Cart::where('user_id', Auth::id())
@@ -69,8 +68,7 @@ class CheckoutController extends Controller
                 'order_status' => 'pending',
                 'notes' => $request->notes,
                 'latitude' => $request->latitude,
-                'longitude' => $request->longitude,
-                'altitude' => $request->altitude
+                'longitude' => $request->longitude
             ]);
 
             foreach ($carts as $cart) {

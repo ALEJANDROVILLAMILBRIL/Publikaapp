@@ -56,6 +56,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
 Route::middleware(['auth', 'role:seller'])->prefix('seller')->name('seller.')->group(function () {
     Route::get('/orders', [OrdersController::class, 'ordersSeller'])->name('orders.ordersSeller');
+    Route::post('/orders/{order}/update', [OrdersController::class, 'updateOrderStatus'])->name('orders.updateStatus');
 });
 
 Route::middleware(['auth'])->group(function () {

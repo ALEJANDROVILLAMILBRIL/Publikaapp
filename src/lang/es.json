@@ -349,5 +349,17 @@
     "Continue Shopping": "Seguir Comprando",
     "Secure payment via PayPal": "Pago seguro a través de PayPal",
     "Selected method": "Método seleccionado",
-    "Orders": "Pedidos"
+    "Orders": "Pedidos",
+    "Orders Dashboard": "Panel de Órdenes",
+    "No orders yet": "No hay órdenes aún",
+    "Order #:": "Orden #:",
+    "Customer:": "Cliente:",
+    "Payment method:": "Método de pago:",
+    "Payment status:": "Estado de pago:",
+    "Order status:": "Estado de la orden:",
+    "Quantity:": "Cantidad:",
+    "Pending": "Pendiente",
+    "Failed": "Fallido",
+    "Rejected": "Rechazada",
+    "Cash": "Efectivo"
 }

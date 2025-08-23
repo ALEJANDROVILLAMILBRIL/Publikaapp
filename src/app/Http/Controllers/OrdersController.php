@@ -27,6 +27,24 @@ class OrdersController extends Controller
         return view('seller.orders.index', compact('orders'));
     }
 
+    public function updateOrderStatus(Request $request, Order $order)
+    {
+        $request->validate([
+            'order_status' => 'required|in:pending,accepted,rejected',
+            'payment_status' => 'nullable|in:pending,paid,failed'
+        ]);
+
+        if ($order->payment_method === 'cash' && $request->payment_status) {
+            $order->payment_status = $request->payment_status;
+        }
+
+        $order->order_status = $request->order_status;
+        $order->save();
+
+        flash()->success(__('Order updated successfully'));
+        return back();
+    }
+
     public function show(Order $order)
     {
         if ($order->user_id !== Auth::id()) {

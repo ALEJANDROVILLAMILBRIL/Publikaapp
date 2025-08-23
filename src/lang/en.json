@@ -349,5 +349,17 @@
     "Continue Shopping": "Continue Shopping",
     "Secure payment via PayPal": "Secure payment via PayPal",
     "Selected method": "Selected method",
-    "Orders": "Orders"
+    "Orders": "Orders",
+    "Orders Dashboard": "Orders Dashboard",
+    "No orders yet": "No orders yet",
+    "Order #:": "Order #:",
+    "Customer:": "Customer:",
+    "Payment method:": "Payment method:",
+    "Payment status:": "Payment status:",
+    "Order status:": "Order status:",
+    "Quantity:": "Quantity:",
+    "Pending": "Pending",
+    "Failed": "Failed",
+    "Rejected": "Rejected",
+    "Cash": "Cash"
 }

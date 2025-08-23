@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\CartController as AdminCartController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Customer\CartController as CustomerCartController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LanguageController;
@@ -47,6 +50,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('products', ProductController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
+    Route::resource('carts', CartController::class);
+});
+
+Route::middleware(['auth', 'role:customer'])->prefix('customer')->name('customer.')->group(function () {
+    Route::resource('carts', CartController::class);
 });
 
 Route::get('/', [ProductController::class, 'homepage'])->name('homepage');

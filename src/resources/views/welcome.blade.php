@@ -33,7 +33,7 @@
                                     {{ __('Dashboard') }}
                                 </a>
                             @else
-                                <a href="{{ route('welcome') }}"
+                                <a href="{{ url('/') }}"
                                    class="text-gray-800 hover:text-gray-900">
                                     {{ __('Home') }}
                                 </a>
@@ -169,9 +169,24 @@
                                         <span class="text-orange-600 font-medium">{{ __('Last units!') }}</span>
                                     @endif
                                 </div>
-                                <button class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors text-sm font-medium">
-                                    {{ __('Add to Cart') }}
-                                </button>
+                                @auth
+                                    @if(Auth::user()->role->name === 'admin')
+                                        <form action="{{ route('admin.carts.store') }}" method="POST">
+                                    @else
+                                        <form action="{{ route('customer.carts.store') }}" method="POST">
+                                    @endif
+                                        @csrf
+                                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                        <input type="hidden" name="quantity" value="1">
+                                        <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors text-sm font-medium">
+                                            {{ __('Add to Cart') }}
+                                        </button>
+                                    </form>
+                                @else
+                                    <button onclick="showLoginAlert()" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors text-sm font-medium">
+                                        {{ __('Add to Cart') }}
+                                    </button>
+                                @endauth
                             </div>
                         </div>
                     @endforeach
@@ -230,6 +245,28 @@
                 </div>
             </div>
         </footer>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script type="text/javascript">
+            function showLoginAlert() {
+                swal({
+                    title: "{{ __('Sign in required') }}",
+                    text: "{{ __('You need to sign in to add products to your cart') }}",
+                    icon: 'info',
+                    buttons: {
+                        cancel: "{{ __('Cancel') }}",
+                        login: {
+                            text: "{{ __('Sign In') }}",
+                            value: "login",
+                            className: "btn-primary"
+                        }
+                    }
+                }).then((value) => {
+                    if (value === "login") {
+                        window.location.href = "{{ route('login') }}";
+                    }
+                });
+            }
+        </script>
         @include('components.accessibility-menu')
     </body>
 </html>

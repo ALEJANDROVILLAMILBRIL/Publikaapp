@@ -52,44 +52,57 @@
                         {{ __('Payment Method') }}
                     </h3>
 
-                    <div class="space-y-4 mb-6">
-                        <!-- Pago en efectivo -->
-                        <label class="payment-option flex items-center p-4 border-2 border-blue-500 rounded-lg cursor-pointer hover:border-blue-600 transition-colors">
-                            <input type="radio" name="payment_method" value="cash" class="hidden" checked>
-                            <div class="payment-indicator w-6 h-6 rounded-full border-2 border-blue-500 flex items-center justify-center mr-4">
-                                <div class="w-3 h-3 rounded-full bg-blue-500"></div>
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <!-- Cash Payment -->
+                        <label class="payment-option flex items-start p-6 rounded-lg cursor-pointer transition-all duration-200 relative"
+                               style="border: 2px solid #2563eb; background-color: #eff6ff;">
+                            <input type="radio" name="payment_method" value="cash" class="sr-only" checked>
+                            <div class="payment-indicator w-6 h-6 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0"
+                                 style="border: 2px solid #3b82f6; background-color: white;">
+                                <div class="dot w-3 h-3 rounded-full" style="background-color: #3b82f6;"></div>
                             </div>
-                            <div class="flex items-center gap-3 flex-1">
-                                <div class="bg-green-100 dark:bg-green-900 p-3 rounded-lg">
+                            <div class="flex items-start gap-4 flex-1">
+                                <div class="bg-green-100 dark:bg-green-900 p-3 rounded-lg flex-shrink-0">
                                     <i class="fas fa-money-bill-wave text-green-600 dark:text-green-400 text-xl"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-semibold text-gray-800 dark:text-gray-200">{{ __('Cash Payment') }}</h4>
+                                    <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-1">{{ __('Cash Payment') }}</h4>
                                     <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('Pay in cash when you receive your order') }}</p>
                                 </div>
                             </div>
                         </label>
 
                         <!-- PayPal -->
-                        <label class="payment-option flex items-center p-4 border-2 border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer hover:border-blue-300 dark:hover:border-blue-500 transition-colors">
-                            <input type="radio" name="payment_method" value="paypal" class="hidden">
-                            <div class="payment-indicator w-6 h-6 rounded-full border-2 border-gray-300 dark:border-gray-600 flex items-center justify-center mr-4">
-                                <div class="w-3 h-3 rounded-full bg-transparent"></div>
+                        <label class="payment-option flex items-start p-6 rounded-lg cursor-pointer transition-all duration-200 relative"
+                               style="border: 2px solid #d1d5db; background-color: white;">
+                            <input type="radio" name="payment_method" value="paypal" class="sr-only">
+                            <div class="payment-indicator w-6 h-6 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0"
+                                 style="border: 2px solid #d1d5db; background-color: white;">
+                                <div class="dot w-3 h-3 rounded-full" style="background-color: transparent;"></div>
                             </div>
-                            <div class="flex items-center gap-3 flex-1">
-                                <div class="bg-blue-100 dark:bg-blue-900 p-3 rounded-lg">
+                            <div class="flex items-start gap-4 flex-1">
+                                <div class="bg-blue-100 dark:bg-blue-900 p-3 rounded-lg flex-shrink-0">
                                     <i class="fab fa-paypal text-blue-600 dark:text-blue-400 text-xl"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-semibold text-gray-800 dark:text-gray-200">PayPal</h4>
-                                    <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('Pay securely with PayPal') }}</p>
+                                    <h4 class="font-semibold text-gray-800 dark:text-gray-200 mb-1">{{ __('PayPal') }}</h4>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">{{ __('Secure payment via PayPal') }}</p>
                                 </div>
                             </div>
                         </label>
                     </div>
 
+                    <!-- Indicador visual adicional -->
+                    <div class="mb-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-500">
+                        <p class="text-sm text-gray-700 dark:text-gray-300">
+                            <i class="fas fa-info-circle text-blue-500 mr-2"></i>
+                            <strong>{{ __('Selected method') }}:</strong>
+                            <span id="selected-method" class="text-blue-600 dark:text-blue-400 font-semibold ml-1">{{ __('Cash Payment') }}</span>
+                        </p>
+                    </div>
+
                     <!-- Notas adicionales -->
-                    <div class="mb-6">
+                    <div class="mb-8">
                         <label for="notes" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                             {{ __('Additional Notes') }} ({{ __('Optional') }})
                         </label>
@@ -115,51 +128,77 @@
     </div>
 
     @section('script')
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const paymentOptions = document.querySelectorAll('.payment-option');
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const options = document.querySelectorAll(".payment-option");
+            const selectedMethodText = document.getElementById('selected-method');
 
-                paymentOptions.forEach(option => {
-                    option.addEventListener('click', function() {
-                        // Remover selección de todas las opciones
-                        paymentOptions.forEach(opt => {
-                            const radio = opt.querySelector('input[type="radio"]');
-                            const indicator = opt.querySelector('.payment-indicator');
-                            const dot = indicator.querySelector('div');
+            function resetAllOptions() {
+                options.forEach(opt => {
+                    opt.style.border = '2px solid #d1d5db';
+                    opt.style.backgroundColor = 'white';
 
-                            radio.checked = false;
-                            opt.classList.remove('border-blue-500', 'border-blue-600');
-                            opt.classList.add('border-gray-200', 'dark:border-gray-700');
-                            indicator.classList.remove('border-blue-500');
-                            indicator.classList.add('border-gray-300', 'dark:border-gray-600');
-                            dot.classList.remove('bg-blue-500');
-                            dot.classList.add('bg-transparent');
-                        });
+                    const indicator = opt.querySelector(".payment-indicator");
+                    const dot = opt.querySelector(".dot");
 
-                        // Seleccionar la opción clickeada
-                        const radio = this.querySelector('input[type="radio"]');
-                        const indicator = this.querySelector('.payment-indicator');
-                        const dot = indicator.querySelector('div');
+                    if (indicator) {
+                        indicator.style.border = '2px solid #d1d5db';
+                    }
+                    if (dot) {
+                        dot.style.backgroundColor = 'transparent';
+                    }
 
-                        radio.checked = true;
-                        this.classList.remove('border-gray-200', 'dark:border-gray-700');
-                        this.classList.add('border-blue-500');
-                        indicator.classList.remove('border-gray-300', 'dark:border-gray-600');
-                        indicator.classList.add('border-blue-500');
-                        dot.classList.remove('bg-transparent');
-                        dot.classList.add('bg-blue-500');
-                    });
+                    const radio = opt.querySelector("input[type='radio']");
+                    if (radio) {
+                        radio.checked = false;
+                    }
                 });
+            }
 
-                // Inicializar el estado por defecto (Cash seleccionado)
-                const defaultOption = document.querySelector('input[value="cash"]').closest('.payment-option');
-                const defaultIndicator = defaultOption.querySelector('.payment-indicator');
-                const defaultDot = defaultIndicator.querySelector('div');
+            function selectOption(option) {
+                resetAllOptions();
 
-                defaultOption.classList.add('border-blue-500');
-                defaultIndicator.classList.add('border-blue-500');
-                defaultDot.classList.add('bg-blue-500');
+                option.style.border = '2px solid #2563eb';
+                option.style.backgroundColor = '#eff6ff';
+
+                const indicator = option.querySelector(".payment-indicator");
+                const dot = option.querySelector(".dot");
+                const radio = option.querySelector("input[type='radio']");
+
+                if (indicator) {
+                    indicator.style.border = '2px solid #3b82f6';
+                }
+                if (dot) {
+                    dot.style.backgroundColor = '#3b82f6';
+                }
+                if (radio) {
+                    radio.checked = true;
+
+                    if (selectedMethodText) {
+                        if (radio.value === 'cash') {
+                            selectedMethodText.textContent = '{{ __("Cash Payment") }}';
+                        } else if (radio.value === 'paypal') {
+                            selectedMethodText.textContent = 'PayPal';
+                        }
+                    }
+                }
+            }
+
+            options.forEach(option => {
+                option.addEventListener("click", function(e) {
+                    e.preventDefault();
+                    selectOption(this);
+                });
             });
-        </script>
+
+            const cashOption = document.querySelector("input[value='cash']");
+            if (cashOption) {
+                const cashLabel = cashOption.closest('.payment-option');
+                if (cashLabel) {
+                    selectOption(cashLabel);
+                }
+            }
+        });
+    </script>
     @endsection
 </x-app-layout>

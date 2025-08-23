@@ -346,5 +346,7 @@
     "Order Notes": "Notas del Pedido",
     "Order Items": "Artículos del Pedido",
     "All Orders": "Todos los Pedidos",
-    "Continue Shopping": "Seguir Comprando"
+    "Continue Shopping": "Seguir Comprando",
+    "Secure payment via PayPal": "Pago seguro a través de PayPal",
+    "Selected method": "Método seleccionado"
 }

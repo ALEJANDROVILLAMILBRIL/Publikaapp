@@ -106,19 +106,6 @@
 
         <!-- Main Content -->
         <div class="container mx-auto px-4 py-6">
-            <div class="bg-gradient-to-r from-blue-600 to-purple-700 text-white rounded-lg p-8 mb-8">
-                <div class="max-w-3xl">
-                    <h1 class="text-4xl lg:text-5xl font-bold mb-4">
-                        {{ __('Welcome to PublikaApp!') }}
-                    </h1>
-                    <p class="text-xl opacity-90 mb-6">
-                        {{ __('Discover amazing products at incredible prices') }}
-                    </p>
-                    <button class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-                        {{ __('Start Shopping') }}
-                    </button>
-                </div>
-            </div>
 
             <!-- Products Section -->
             @if ($products->count())

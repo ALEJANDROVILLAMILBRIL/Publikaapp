@@ -329,5 +329,22 @@
     "Optional": "Optional",
     "Special instructions for your order...": "Special instructions for your order...",
     "Back to Cart": "Back to Cart",
-    "Place Order": "Place Order"
+    "Place Order": "Place Order",
+    "My Orders": "My Orders",
+    "You haven't placed any orders yet": "You haven't placed any orders yet",
+    "Start Shopping": "Start Shopping",
+    "Order": "Order",
+    "Items": "Items",
+    "and :count more items": "and :count more items",
+    "View Details": "View Details",
+    "Placed on": "Placed on",
+    "Paid": "Paid",
+    "Pending Payment": "Pending Payment",
+    "Payment Failed": "Payment Failed",
+    "Payment Information": "Payment Information",
+    "Pay on delivery": "Pay on delivery",
+    "Order Notes": "Order Notes",
+    "Order Items": "Order Items",
+    "All Orders": "All Orders",
+    "Continue Shopping": "Continue Shopping"
 }

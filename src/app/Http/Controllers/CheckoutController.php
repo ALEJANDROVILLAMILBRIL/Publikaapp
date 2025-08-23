@@ -9,6 +9,7 @@ use App\Models\Cart;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class CheckoutController extends Controller
 {
@@ -23,7 +24,7 @@ class CheckoutController extends Controller
             return redirect()->route('carts.index');
         }
 
-        $total = $carts->sum(function($cart) {
+        $total = $carts->sum(function ($cart) {
             return $cart->product->price * $cart->quantity;
         });
 
@@ -46,7 +47,7 @@ class CheckoutController extends Controller
             return redirect()->route('carts.index');
         }
 
-        $total = $carts->sum(function($cart) {
+        $total = $carts->sum(function ($cart) {
             return $cart->product->price * $cart->quantity;
         });
 
@@ -98,12 +99,25 @@ class CheckoutController extends Controller
                 flash()->success(__('Order placed successfully! You will pay in cash.'));
                 return redirect()->route('orders.show', $order->slug);
             }
-
         } catch (\Exception $e) {
             DB::rollback();
             flash()->error(__('Error processing order: ') . $e->getMessage());
             return back();
         }
+    }
+
+    private function convertCOPtoUSD($amountCOP)
+    {
+        try {
+            $response = Http::get('https://api.exchangerate-api.com/v4/latest/COP');
+            if ($response->successful()) {
+                $exchangeRate = $response->json()['rates']['USD'] ?? 0.00025;
+                return max($amountCOP * $exchangeRate, 1.0);
+            }
+        } catch (\Exception $e) {
+            // fallback silencioso
+        }
+        return max($amountCOP / 4000, 1.0);
     }
 
     private function createPayPalOrder($order, $total)
@@ -115,6 +129,8 @@ class CheckoutController extends Controller
                 return ['success' => false, 'error' => 'Unable to get PayPal access token'];
             }
 
+            $totalUSD = $this->convertCOPtoUSD($total);
+
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $accessToken,
                 'Content-Type' => 'application/json'
@@ -124,7 +140,7 @@ class CheckoutController extends Controller
                     'reference_id' => $order->order_number,
                     'amount' => [
                         'currency_code' => 'USD',
-                        'value' => number_format($total, 2, '.', '')
+                        'value' => number_format($totalUSD, 2, '.', '')
                     ]
                 ]],
                 'application_context' => [
@@ -146,7 +162,6 @@ class CheckoutController extends Controller
             }
 
             return ['success' => false, 'error' => 'PayPal API error'];
-
         } catch (\Exception $e) {
             return ['success' => false, 'error' => $e->getMessage()];
         }
@@ -212,21 +227,46 @@ class CheckoutController extends Controller
     {
         try {
             $accessToken = $this->getPayPalAccessToken();
-
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $accessToken,
-                'Content-Type' => 'application/json'
-            ])->post(config('services.paypal.base_url') . "/v2/checkout/orders/{$orderID}/capture");
-
-            if ($response->successful()) {
-                return [
-                    'success' => true,
-                    'details' => $response->json()
-                ];
+            if (!$accessToken) {
+                return ['success' => false, 'error' => 'Unable to get PayPal access token'];
             }
 
-            return ['success' => false, 'error' => 'PayPal capture failed'];
+            $url = config('services.paypal.base_url') . "/v2/checkout/orders/{$orderID}/capture";
+            $curl = curl_init();
+            curl_setopt_array($curl, [
+                CURLOPT_URL => $url,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_POST => true,
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_HTTPHEADER => [
+                    'Authorization: Bearer ' . $accessToken,
+                    'Content-Type: application/json',
+                    'Accept: application/json',
+                    'Content-Length: 0'
+                ],
+                CURLOPT_POSTFIELDS => ''
+            ]);
 
+            $response = curl_exec($curl);
+            $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            $error = curl_error($curl);
+            curl_close($curl);
+
+            if ($error) {
+                return ['success' => false, 'error' => 'Network error: ' . $error];
+            }
+
+            $data = json_decode($response, true);
+
+            if ($httpCode >= 200 && $httpCode < 300) {
+                $captureStatus = $data['purchase_units'][0]['payments']['captures'][0]['status'] ?? null;
+                if ($captureStatus === 'COMPLETED') {
+                    return ['success' => true, 'details' => $data];
+                }
+                return ['success' => false, 'error' => 'Capture status: ' . ($captureStatus ?? 'unknown')];
+            }
+
+            return ['success' => false, 'error' => 'PayPal capture failed with status: ' . $httpCode];
         } catch (\Exception $e) {
             return ['success' => false, 'error' => $e->getMessage()];
         }

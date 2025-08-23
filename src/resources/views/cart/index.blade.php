@@ -64,10 +64,10 @@
                                 </div>
 
                                 <!-- Eliminar -->
-                                <form action="{{ route('carts.destroy', $cart->id) }}" method="POST">
+                                <form action="{{ route('carts.destroy', $cart->id) }}" method="POST" id="deleteForm_{{ $cart->id }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="text-red-600 hover:text-red-700 text-lg">
+                                    <button type="button" onclick="confirmDelete('{{ $cart->id }}')" class="text-red-600 hover:text-red-700 text-lg">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </form>
@@ -115,6 +115,20 @@
                 }
             });
         });
+
+        function confirmDelete(cartId) {
+            swal({
+                title: @json(__('messages.confirm_title')),
+                text: @json(__('messages.confirm_text')),
+                icon: 'warning',
+                buttons: true,
+                dangerMode: true
+            }).then((willDelete) => {
+                if (willDelete) {
+                    document.getElementById('deleteForm_' + cartId).submit();
+                }
+            });
+        }
         </script>
     @endsection
 </x-app-layout>

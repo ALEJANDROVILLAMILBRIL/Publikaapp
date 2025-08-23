@@ -83,8 +83,8 @@
                                 ${{ number_format($carts->sum(fn($c) => $c->product->price * $c->quantity), 0, ',', '.') }}
                             </span>
                         </h3>
-                        <a href="#"
-                            class="bg-blue-500 text-white px-4 py-2 rounded-md font-medium shadow hover:bg-blue-600">
+                        <a href="{{ route('checkout.index') }}"
+                        class="bg-blue-500 text-white px-4 py-2 rounded-md font-medium shadow hover:bg-blue-600">
                             {{ __('Proceed to Checkout') }}
                         </a>
                     </div>

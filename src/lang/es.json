@@ -316,5 +316,18 @@
     "My Cart": "Mi Carrito",
     "Your cart is empty": "Tu carrito está vacío",
     "Go Shopping": "Ir de compras",
-    "Proceed to Checkout": "Proceder al pago"
+    "Proceed to Checkout": "Proceder al pago",
+    "Checkout": "Finalizar compra",
+    "Order Summary": "Resumen del pedido",
+    "Total": "Total",
+    "Payment Method": "Método de pago",
+    "Cash Payment": "Pago en efectivo",
+    "Pay in cash when you receive your order": "Paga en efectivo al recibir tu pedido",
+    "PayPal": "PayPal",
+    "Pay securely with PayPal": "Paga de forma segura con PayPal",
+    "Additional Notes": "Notas adicionales",
+    "Optional": "Opcional",
+    "Special instructions for your order...": "Instrucciones especiales para tu pedido...",
+    "Back to Cart": "Volver al carrito",
+    "Place Order": "Realizar pedido"
 }

@@ -54,8 +54,8 @@
 
                     <div class="space-y-4 mb-6">
                         <!-- Pago en efectivo -->
-                        <label class="flex items-center p-4 border-2 border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer hover:border-blue-300 dark:hover:border-blue-500 transition-colors">
-                            <input type="radio" name="payment_method" value="cash" class="sr-only payment-radio" checked>
+                        <label class="payment-option flex items-center p-4 border-2 border-blue-500 rounded-lg cursor-pointer hover:border-blue-600 transition-colors">
+                            <input type="radio" name="payment_method" value="cash" class="hidden" checked>
                             <div class="payment-indicator w-6 h-6 rounded-full border-2 border-blue-500 flex items-center justify-center mr-4">
                                 <div class="w-3 h-3 rounded-full bg-blue-500"></div>
                             </div>
@@ -71,8 +71,8 @@
                         </label>
 
                         <!-- PayPal -->
-                        <label class="flex items-center p-4 border-2 border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer hover:border-blue-300 dark:hover:border-blue-500 transition-colors">
-                            <input type="radio" name="payment_method" value="paypal" class="sr-only payment-radio">
+                        <label class="payment-option flex items-center p-4 border-2 border-gray-200 dark:border-gray-700 rounded-lg cursor-pointer hover:border-blue-300 dark:hover:border-blue-500 transition-colors">
+                            <input type="radio" name="payment_method" value="paypal" class="hidden">
                             <div class="payment-indicator w-6 h-6 rounded-full border-2 border-gray-300 dark:border-gray-600 flex items-center justify-center mr-4">
                                 <div class="w-3 h-3 rounded-full bg-transparent"></div>
                             </div>
@@ -114,31 +114,52 @@
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const radioButtons = document.querySelectorAll('.payment-radio');
-            const indicators = document.querySelectorAll('.payment-indicator');
+    @section('script')
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const paymentOptions = document.querySelectorAll('.payment-option');
 
-            radioButtons.forEach((radio, index) => {
-                radio.addEventListener('change', function() {
-                    // Reset all indicators
-                    indicators.forEach(indicator => {
-                        indicator.classList.remove('border-blue-500');
-                        indicator.classList.add('border-gray-300', 'dark:border-gray-600');
-                        indicator.querySelector('div').classList.remove('bg-blue-500');
-                        indicator.querySelector('div').classList.add('bg-transparent');
+                paymentOptions.forEach(option => {
+                    option.addEventListener('click', function() {
+                        // Remover selección de todas las opciones
+                        paymentOptions.forEach(opt => {
+                            const radio = opt.querySelector('input[type="radio"]');
+                            const indicator = opt.querySelector('.payment-indicator');
+                            const dot = indicator.querySelector('div');
+
+                            radio.checked = false;
+                            opt.classList.remove('border-blue-500', 'border-blue-600');
+                            opt.classList.add('border-gray-200', 'dark:border-gray-700');
+                            indicator.classList.remove('border-blue-500');
+                            indicator.classList.add('border-gray-300', 'dark:border-gray-600');
+                            dot.classList.remove('bg-blue-500');
+                            dot.classList.add('bg-transparent');
+                        });
+
+                        // Seleccionar la opción clickeada
+                        const radio = this.querySelector('input[type="radio"]');
+                        const indicator = this.querySelector('.payment-indicator');
+                        const dot = indicator.querySelector('div');
+
+                        radio.checked = true;
+                        this.classList.remove('border-gray-200', 'dark:border-gray-700');
+                        this.classList.add('border-blue-500');
+                        indicator.classList.remove('border-gray-300', 'dark:border-gray-600');
+                        indicator.classList.add('border-blue-500');
+                        dot.classList.remove('bg-transparent');
+                        dot.classList.add('bg-blue-500');
                     });
-
-                    // Activate selected indicator
-                    if (this.checked) {
-                        const currentIndicator = indicators[index];
-                        currentIndicator.classList.remove('border-gray-300', 'dark:border-gray-600');
-                        currentIndicator.classList.add('border-blue-500');
-                        currentIndicator.querySelector('div').classList.remove('bg-transparent');
-                        currentIndicator.querySelector('div').classList.add('bg-blue-500');
-                    }
                 });
+
+                // Inicializar el estado por defecto (Cash seleccionado)
+                const defaultOption = document.querySelector('input[value="cash"]').closest('.payment-option');
+                const defaultIndicator = defaultOption.querySelector('.payment-indicator');
+                const defaultDot = defaultIndicator.querySelector('div');
+
+                defaultOption.classList.add('border-blue-500');
+                defaultIndicator.classList.add('border-blue-500');
+                defaultDot.classList.add('bg-blue-500');
             });
-        });
-    </script>
+        </script>
+    @endsection
 </x-app-layout>

@@ -50,11 +50,11 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::resource('products', ProductController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
-    Route::resource('carts', CartController::class);
 });
 
-Route::middleware(['auth', 'role:customer'])->prefix('customer')->name('customer.')->group(function () {
-    Route::resource('carts', CartController::class);
+Route::middleware(['auth'])->group(function () {
+    Route::resource('carts', CartController::class)
+        ->only(['index', 'store', 'update', 'destroy']);
 });
 
 Route::get('/', [ProductController::class, 'homepage'])->name('homepage');

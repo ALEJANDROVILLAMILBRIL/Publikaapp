@@ -95,7 +95,7 @@
 
                     <!-- Cart -->
                     <div class="flex items-center ml-4">
-                        <a href="#" class="flex items-center text-gray-800 hover:text-gray-900 relative">
+                            <a href="{{ route('carts.index') }}" class="flex items-center text-gray-800 hover:text-gray-900 relative">
                             <i class="fas fa-shopping-cart text-xl mr-2"></i>
 
                             @if($cartCount > 0)
@@ -162,11 +162,7 @@
                                     @endif
                                 </div>
                                 @auth
-                                    @if(Auth::user()->role->name === 'admin')
-                                        <form action="{{ route('admin.carts.store') }}" method="POST">
-                                    @else
-                                        <form action="{{ route('customer.carts.store') }}" method="POST">
-                                    @endif
+                                    <form action="{{ route('carts.store') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
                                         <input type="hidden" name="quantity" value="1">

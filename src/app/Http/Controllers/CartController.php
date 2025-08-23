@@ -13,7 +13,11 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        $carts = Cart::with('product')
+            ->where('user_id', Auth::id())
+            ->get();
+
+        return view('cart.index', compact('carts'));
     }
 
     /**

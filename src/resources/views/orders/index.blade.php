@@ -34,19 +34,16 @@
                                         </div>
                                         <div class="flex items-center gap-3">
                                             <span class="px-3 py-1 rounded-full text-sm font-medium
-                                                @switch($order->payment_status)
-                                                    @case('paid')
-                                                        bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200
-                                                        @break
-                                                    @case('pending')
-                                                        bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200
-                                                        @break
-                                                    @case('failed')
-                                                        bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200
-                                                        @break
-                                                @endswitch
-                                            ">
-                                                {{ ucfirst($order->payment_status) }}
+                                                {{ [
+                                                    'paid' => 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
+                                                    'pending' => 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
+                                                    'failed' => 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
+                                                ][$order->payment_status] ?? '' }}">
+                                                {{ [
+                                                    'paid' => __('Paid'),
+                                                    'pending' => __('Pending Payment'),
+                                                    'failed' => __('Payment Failed'),
+                                                ][$order->payment_status] ?? $order->payment_status }}
                                             </span>
                                             <span class="text-xl font-bold text-blue-600">
                                                 ${{ number_format($order->total_amount, 0, ',', '.') }}
@@ -93,7 +90,7 @@
                                     </div>
 
                                     <div class="flex justify-end">
-                                        <a href="{{ route('orders.show', $order->id) }}"
+                                        <a href="{{ route('orders.show', $order->slug) }}"
                                            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
                                             {{ __('View Details') }}
                                         </a>

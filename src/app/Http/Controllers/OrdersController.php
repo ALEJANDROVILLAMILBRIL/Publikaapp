@@ -13,7 +13,17 @@ class OrdersController extends Controller
     {
         $orders = Order::where('user_id', Auth::id())
             ->with('orderItems.product')
-            ->withCount('actions')
+            ->withCount([
+                'actions' => function ($query) {
+                    $query->where(function ($subQuery) {
+                        $subQuery->where('solved_by_user', false)
+                            ->orWhere(function ($innerQuery) {
+                                $innerQuery->where('solved_by_seller', false)
+                                    ->where('solved_by_admin', false);
+                            });
+                    });
+                }
+            ])
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
@@ -23,7 +33,17 @@ class OrdersController extends Controller
     public function ordersIndex()
     {
         $orders = Order::with('orderItems.product', 'user')
-            ->withCount('actions')
+            ->withCount([
+                'actions' => function ($query) {
+                    $query->where(function ($subQuery) {
+                        $subQuery->where('solved_by_user', false)
+                            ->orWhere(function ($innerQuery) {
+                                $innerQuery->where('solved_by_seller', false)
+                                    ->where('solved_by_admin', false);
+                            });
+                    });
+                }
+            ])
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 

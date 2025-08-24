@@ -397,5 +397,14 @@
     "Open in Google Maps": "Abrir en Google Maps",
     "Copy Coordinates": "Copiar coordenadas",
     "View my reports": "Ver mis reportes",
-    "No reports yet": "No hay reportes aún"
+    "No reports yet": "No hay reportes aún",
+    "My Reports": "Mis Reportes",
+    "Solution notes": "Notas de solución",
+    "Awaiting customer confirmation": "Esperando confirmación del cliente",
+    "Solution provided": "Solución proporcionada",
+    "Pending resolution": "Resolución pendiente",
+    "Describe how this issue was resolved or what action was taken...": "Describa cómo se resolvió este problema o qué acción se tomó...",
+    "Resolve report": "Resolver reporte",
+    "Are you sure?": "¿Está seguro?",
+    "Are you sure you want to mark this report as resolved?": "¿Está seguro de que desea marcar este informe como resuelto?"
 }

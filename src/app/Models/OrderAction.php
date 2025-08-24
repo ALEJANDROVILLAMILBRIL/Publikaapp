@@ -15,6 +15,13 @@ class OrderAction extends Model
         'description',
         'phone_number',
         'email',
+        'solved_by_user',
+        'user_id',
+        'solved_by_seller',
+        'seller_id',
+        'solved_by_admin',
+        'admin_id',
+        'solution_notes',
     ];
 
     public function order()

@@ -398,5 +398,14 @@
     "Open in Google Maps": "Open in Google Maps",
     "Copy Coordinates": "Copy coordinates",
     "View my reports": "View my reports",
-    "No reports yet": "No reports yet"
+    "No reports yet": "No reports yet",
+    "My Reports": "My reports",
+    "Solution notes": "Solution notes",
+    "Awaiting customer confirmation": "Awaiting customer confirmation",
+    "Solution provided": "Solution provided",
+    "Pending resolution": "Pending resolution",
+    "Describe how this issue was resolved or what action was taken...": "Describe how this issue was resolved or what action was taken...",
+    "Resolve report": "Resolve report",
+    "Are you sure?": "Are you sure?",
+    "Are you sure you want to mark this report as resolved?": "Are you sure you want to mark this report as resolved?"
 }

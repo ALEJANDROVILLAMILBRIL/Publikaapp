@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\OrderAction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,6 +38,28 @@ class OrdersController extends Controller
         });
 
         return view('orders.management.index', compact('orders', 'ordersData'));
+    }
+
+    public function resolveAction(Request $request, OrderAction $action)
+    {
+        $user = Auth::user();
+
+        $actionData = [
+            'solution_notes' => $request->input('solution_notes'),
+        ];
+
+        if ($user->role_id == 1) {
+            $actionData['solved_by_admin'] = true;
+            $actionData['admin_id'] = $user->id;
+        } elseif ($user->role_id == 3) {
+            $actionData['solved_by_seller'] = true;
+            $actionData['seller_id'] = $user->id;
+        }
+
+        $action->update($actionData);
+
+        return redirect()->back()
+            ->with('success', __('Report has been resolved successfully. The customer will be notified to confirm the resolution.'));
     }
 
     public function updateOrderStatus(Request $request, Order $order)

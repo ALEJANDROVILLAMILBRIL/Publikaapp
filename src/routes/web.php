@@ -69,6 +69,9 @@ Route::middleware(['auth', 'role:seller,admin'])->group(function () {
     });
 
     Route::get('/orders/{order}/actions', [OrdersController::class, 'actions'])->name('orders.actions');
+
+    Route::patch('/orders/actions/{action}/resolve', [OrdersController::class, 'resolveAction'])
+        ->name('orders.actions.resolve');
 });
 
 Route::middleware(['auth'])->group(function () {

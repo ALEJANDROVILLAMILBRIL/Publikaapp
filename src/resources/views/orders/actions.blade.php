@@ -2,7 +2,7 @@
     <x-slot name="header">
         <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight flex items-center gap-2">
             <i class="fas fa-comments"></i>
-            {{ __('Comentarios del pedido #:') }} {{ $order->order_number }}
+            {{ __('Order comments #:') }} {{ $order->order_number }}
         </h2>
     </x-slot>
 
@@ -10,7 +10,7 @@
         @if($actions->isEmpty())
             <div class="text-center py-16">
                 <i class="fas fa-comment-slash text-6xl text-gray-300 mb-6"></i>
-                <p class="text-lg text-gray-600 dark:text-gray-400">{{ __('No hay comentarios aún.') }}</p>
+                <p class="text-lg text-gray-600 dark:text-gray-400">{{ __('No comments yet') }}</p>
             </div>
         @else
             <div class="space-y-4">
@@ -55,13 +55,5 @@
                 @endforeach
             </div>
         @endif
-
-        {{-- Botón volver --}}
-        <div class="mt-8 text-center">
-            <a href="{{ route('orders.index') }}"
-               class="inline-flex items-center px-5 py-2.5 bg-gray-700 text-white text-sm font-medium rounded-lg shadow-md hover:bg-gray-800 transition">
-                <i class="fas fa-arrow-left mr-2"></i> {{ __('Back') }}
-            </a>
-        </div>
     </div>
 </x-app-layout>

@@ -114,7 +114,7 @@
                                                             <button type="submit"
                                                                 class="inline-flex items-center justify-center min-h-[44px] px-4 py-2.5 rounded-lg text-sm font-semibold
                                                                     bg-red-600 text-white hover:bg-red-700 shadow-sm">
-                                                                <i class="fas fa-paper-plane mr-2"></i> {{ __('Enviar') }}
+                                                                <i class="fas fa-paper-plane mr-2"></i> {{ __('Send') }}
                                                             </button>
                                                             <button type="button"
                                                                 @click="open = false; $refs.returnNote.value='';"
@@ -131,7 +131,7 @@
                                                         x-show="!open"
                                                         class="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-lg text-sm font-semibold
                                                             bg-red-600 text-white hover:bg-red-700 shadow-sm whitespace-nowrap">
-                                                        <i class="fas fa-undo-alt mr-2"></i> {{ __('Devolver compra') }}
+                                                        <i class="fas fa-undo-alt mr-2"></i> {{ __('Return purchase') }}
                                                     </button>
                                                 </form>
                                             </div>

@@ -382,5 +382,6 @@
     "Could not get location. Please use manual input.": "Could not get location. Please use manual input.",
     "GPS not supported by this browser": "GPS not supported by this browser",
     "Refresh": "Refresh",
-    "Try Again": "Try Again"
+    "Try Again": "Try Again",
+    "Could not copy coordinates": "Could not copy coordinates"
 }

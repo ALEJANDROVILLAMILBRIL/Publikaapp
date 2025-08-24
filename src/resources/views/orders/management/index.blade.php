@@ -82,6 +82,46 @@
                             </div>
                         </div>
 
+                        {{-- Ubicación y Mapa --}}
+                        @if($order->latitude && $order->longitude)
+                            <div class="lg:w-96">
+                                <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <h4 class="font-medium text-gray-800 dark:text-gray-200">
+                                            <i class="fas fa-map-marker-alt mr-2"></i>{{ __('Delivery Location') }}
+                                        </h4>
+                                        <button type="button" onclick="toggleOrderMap('{{ $order->id }}')"
+                                                id="toggle-btn-{{ $order->id }}"
+                                                class="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                                            <i class="fas fa-eye mr-1"></i>{{ __('Show Map') }}
+                                        </button>
+                                    </div>
+
+                                    <!-- Coordenadas -->
+                                    <div class="text-sm text-gray-600 dark:text-gray-400 mb-3">
+                                        <p><strong>{{ __('Coordinates') }}:</strong></p>
+                                        <p class="font-mono">{{ number_format($order->latitude, 6) }}, {{ number_format($order->longitude, 6) }}</p>
+                                        <p class="text-xs mt-1" id="address-{{ $order->id }}">{{ __('Loading address...') }}</p>
+                                    </div>
+
+                                    <!-- Mapa -->
+                                    <div id="map-container-{{ $order->id }}" class="hidden">
+                                        <div id="map-{{ $order->id }}" style="height: 250px; border-radius: 8px;" class="border"></div>
+                                        <div class="mt-2 flex gap-2">
+                                            <button type="button" onclick="openGoogleMaps({{ $order->latitude }}, {{ $order->longitude }})"
+                                                    class="text-xs bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded">
+                                                <i class="fas fa-external-link-alt mr-1"></i>{{ __('Open in Google Maps') }}
+                                            </button>
+                                            <button type="button" onclick="copyCoordinates({{ $order->latitude }}, {{ $order->longitude }})"
+                                                    class="text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded">
+                                                <i class="fas fa-copy mr-1"></i>{{ __('Copy Coordinates') }}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
                         {{-- Botones y selectores --}}
                         <div class="flex flex-col gap-2 md:items-end mt-4 md:mt-0">
                             <form action="{{ route('seller.orders.updateStatus', $order) }}" method="POST" class="flex flex-col gap-2 w-full md:w-auto">
@@ -133,4 +173,117 @@
             @endif
         </div>
     </div>
+    @section('script')
+        <script>
+            const orderMaps = {};
+            const orderMarkers = {};
+            const orderData = @json($ordersData);
+
+            function toggleOrderMap(orderId) {
+                const container = document.getElementById(`map-container-${orderId}`);
+                const btn = document.getElementById(`toggle-btn-${orderId}`);
+
+                if (container.classList.contains('hidden')) {
+                    container.classList.remove('hidden');
+                    btn.innerHTML = '<i class="fas fa-eye-slash mr-1"></i>{{ __("Hide Map") }}';
+
+                    if (!orderMaps[orderId]) {
+                        setTimeout(() => initOrderMap(orderId), 100);
+                    }
+                } else {
+                    container.classList.add('hidden');
+                    btn.innerHTML = '<i class="fas fa-eye mr-1"></i>{{ __("Show Map") }}';
+                }
+            }
+
+            function initOrderMap(orderId) {
+                const mapElement = document.getElementById(`map-${orderId}`);
+                if (!mapElement || orderMaps[orderId]) return;
+
+                const order = orderData.find(o => o.id == orderId);
+                if (!order || !order.latitude || !order.longitude) return;
+
+                const map = L.map(`map-${orderId}`, {
+                    center: [order.latitude, order.longitude],
+                    zoom: 16,
+                    dragging: false,
+                    touchZoom: false,
+                    doubleClickZoom: false,
+                    scrollWheelZoom: false,
+                    boxZoom: false,
+                    keyboard: false,
+                    zoomControl: true
+                });
+
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors'
+                }).addTo(map);
+
+                const marker = L.marker([order.latitude, order.longitude]).addTo(map);
+                marker.bindPopup(`
+                    <div class="text-sm">
+                        <strong>Order #${order.order_number}</strong><br>
+                        Customer: ${order.customer}<br>
+                        <small class="text-gray-600">${order.latitude.toFixed(6)}, ${order.longitude.toFixed(6)}</small>
+                    </div>
+                `).openPopup();
+
+                orderMaps[orderId] = map;
+                orderMarkers[orderId] = marker;
+
+                getAddressForOrder(orderId, order.latitude, order.longitude);
+            }
+
+            function getAddressForOrder(orderId, lat, lng) {
+                fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&addressdetails=1`)
+                    .then(response => response.json())
+                    .then(data => {
+                        const addressElement = document.getElementById(`address-${orderId}`);
+                        if (data && data.display_name) {
+                            addressElement.textContent = data.display_name;
+                            addressElement.classList.remove('text-gray-400');
+                            addressElement.classList.add('text-gray-600');
+                        } else {
+                            addressElement.textContent = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+                        }
+                    })
+                    .catch(() => {
+                        const addressElement = document.getElementById(`address-${orderId}`);
+                        addressElement.textContent = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
+                    });
+            }
+
+            function openGoogleMaps(lat, lng) {
+                const url = `https://www.google.com/maps?q=${lat},${lng}`;
+                window.open(url, '_blank');
+            }
+
+            function copyCoordinates(lat, lng) {
+                const coords = `${lat}, ${lng}`;
+                navigator.clipboard.writeText(coords).then(() => {
+                    const btn = event.target.closest('button');
+                    const originalContent = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check mr-1"></i>{{ __("Copied!") }}';
+                    btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                    btn.classList.add('bg-green-600');
+
+                    setTimeout(() => {
+                        btn.innerHTML = originalContent;
+                        btn.classList.remove('bg-green-600');
+                        btn.classList.add('bg-blue-600', 'hover:bg-blue-700');
+                    }, 1500);
+                }).catch(() => {
+                    alert('{{ __("Could not copy coordinates") }}');
+                });
+            }
+
+            document.addEventListener("DOMContentLoaded", function() {
+                orderData.forEach(order => {
+                    if (order.latitude && order.longitude) {
+                        getAddressForOrder(order.id, order.latitude, order.longitude);
+                    }
+                });
+            });
+        </script>
+    @endsection
 </x-app-layout>

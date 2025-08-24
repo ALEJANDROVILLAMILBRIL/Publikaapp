@@ -18,6 +18,10 @@
 1. docker-compose down (apagar)
 2. docker-compose up (levantar)
 
+# Logs de debug
+
+1. docker-compose run --rm php tail -n 100 storage/logs/laravel.log
+
 # Credenciales BD
 
 ## .env de MySql

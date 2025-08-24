@@ -24,7 +24,17 @@ class OrdersController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return view('orders.management.index', compact('orders'));
+        $ordersData = $orders->map(function ($order) {
+            return [
+                'id' => $order->id,
+                'latitude' => $order->latitude,
+                'longitude' => $order->longitude,
+                'order_number' => $order->order_number ?? '',
+                'customer' => $order->user->name ?? 'Sin nombre',
+            ];
+        });
+
+        return view('orders.management.index', compact('orders', 'ordersData'));
     }
 
     public function updateOrderStatus(Request $request, Order $order)

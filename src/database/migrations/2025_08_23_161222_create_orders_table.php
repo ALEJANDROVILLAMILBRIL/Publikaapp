@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('payment_status', ['pending', 'paid', 'failed', 'cancelled'])->default('pending');
             $table->string('paypal_order_id')->nullable();
             $table->json('payment_details')->nullable();
-            $table->enum('order_status', ['pending', 'processing', 'shipped', 'delivered', 'cancelled'])->default('pending');
+            $table->enum('order_status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->text('notes')->nullable();
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 10, 7)->nullable();

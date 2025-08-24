@@ -41,7 +41,7 @@ class OrdersController extends Controller
     {
         $request->validate([
             'order_status' => 'required|in:pending,accepted,rejected',
-            'payment_status' => 'nullable|in:pending,paid,failed'
+            'payment_status' => 'nullable|in:pending,paid,failed,cancelled'
         ]);
 
         if ($order->payment_method === 'cash' && $request->payment_status) {

@@ -383,5 +383,7 @@
     "GPS not supported by this browser": "GPS not supported by this browser",
     "Refresh": "Refresh",
     "Try Again": "Try Again",
-    "Could not copy coordinates": "Could not copy coordinates"
+    "Could not copy coordinates": "Could not copy coordinates",
+    "Return request": "Return request",
+    "Incident report": "Incident report"
 }

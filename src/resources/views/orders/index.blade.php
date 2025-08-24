@@ -98,6 +98,20 @@
                                             <i class="fas fa-eye mr-2"></i> {{ __('View details') }}
                                         </a>
 
+                                        <!-- Ver mis reportes -->
+                                        <a href="{{ route('customer.orders.actions', $order->id) }}"
+                                            class="relative inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-lg text-sm font-semibold
+                                                bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm transition-all whitespace-nowrap
+                                                w-full sm:w-auto">
+                                            <i class="fas fa-comments mr-2"></i> {{ __('View my reports') }}
+
+                                            @if($order->actions_count > 0)
+                                                <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                                                    {{ $order->actions_count }}
+                                                </span>
+                                            @endif
+                                        </a>
+
                                         @if($order->payment_status === 'paid' && $order->order_status === 'accepted')
                                             <!-- Devolver compra -->
                                             <div x-data="{ open: false }" class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">

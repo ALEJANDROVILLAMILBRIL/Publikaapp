@@ -12,6 +12,7 @@ class OrdersController extends Controller
     {
         $orders = Order::where('user_id', Auth::id())
             ->with('orderItems.product')
+            ->withCount('actions')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 

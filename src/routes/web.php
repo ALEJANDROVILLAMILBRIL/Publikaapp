@@ -5,6 +5,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\Customer\CartController as CustomerCartController;
+use App\Http\Controllers\CustomerOrderActionsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LanguageController;
@@ -91,6 +92,8 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->name('customer
 
     Route::post('/orders/{order}/incident', [OrderActionController::class, 'incidentReport'])
         ->name('orders.incidentReport');
+
+    Route::get('/my-actions/{order}', [CustomerOrderActionsController::class, 'index'])->name('orders.actions');
 });
 
 Route::get('/', [ProductController::class, 'homepage'])->name('homepage');

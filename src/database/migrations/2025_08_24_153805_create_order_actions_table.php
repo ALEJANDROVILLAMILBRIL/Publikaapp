@@ -18,6 +18,13 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('email')->nullable();
+            $table->boolean('solved_by_user')->default(false);
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->boolean('solved_by_seller')->default(false);
+            $table->foreignId('seller_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->boolean('solved_by_admin')->default(false);
+            $table->foreignId('admin_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->text('solution_notes')->nullable();
             $table->timestamps();
         });
     }

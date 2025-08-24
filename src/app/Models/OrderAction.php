@@ -13,6 +13,8 @@ class OrderAction extends Model
         'order_id',
         'action_type',
         'description',
+        'phone_number',
+        'email',
     ];
 
     public function order()

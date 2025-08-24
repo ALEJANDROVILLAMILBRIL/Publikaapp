@@ -14,6 +14,8 @@ class OrderActionController extends Controller
             'order_id'   => $order->id,
             'action_type' => 'return_request',
             'description' => 'Solicitud de devolución generada por el cliente.',
+            'phone_number'=> $order->user->phone_number,
+            'email'       => $order->user->email,
         ]);
 
         return redirect()->back()->with('success', 'Solicitud de devolución registrada.');
@@ -25,6 +27,8 @@ class OrderActionController extends Controller
             'order_id'   => $order->id,
             'action_type' => 'incident_report',
             'description' => 'Incidente reportado por el cliente.',
+            'phone_number'=> $order->user->phone_number,
+            'email'       => $order->user->email,
         ]);
 
         return redirect()->back()->with('success', 'Incidente reportado correctamente.');

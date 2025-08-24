@@ -89,11 +89,35 @@
                                         </div>
                                     </div>
 
-                                    <div class="flex justify-end">
+                                    <div class="flex justify-end gap-3">
+                                        <!-- Ver detalles -->
                                         <a href="{{ route('orders.show', $order->slug) }}"
-                                           class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
-                                            {{ __('View Details') }}
+                                        class="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-lg text-sm font-semibold
+                                                bg-blue-600 text-white hover:bg-blue-700 shadow-sm transition-all whitespace-nowrap">
+                                            <i class="fas fa-eye mr-2"></i> {{ __('Ver Detalles') }}
                                         </a>
+
+                                        @if($order->payment_status === 'paid' && $order->order_status === 'accepted')
+                                            <!-- Devolver compra -->
+                                            <form action="{{ route('customer.orders.returnRequest', $order) }}" method="POST">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-lg text-sm font-semibold
+                                                        bg-red-600 text-white hover:bg-red-700 shadow-sm transition-all whitespace-nowrap">
+                                                    <i class="fas fa-undo-alt mr-2"></i> {{ __('Devolver compra') }}
+                                                </button>
+                                            </form>
+
+                                            <!-- Reportar incidente -->
+                                            <form action="{{ route('customer.orders.incidentReport', $order) }}" method="POST">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-lg text-sm font-semibold
+                                                        bg-yellow-500 text-black hover:bg-yellow-600 shadow-sm transition-all whitespace-nowrap">
+                                                    <i class="fas fa-exclamation-triangle mr-2"></i> {{ __('Reportar incidente') }}
+                                                </button>
+                                            </form>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

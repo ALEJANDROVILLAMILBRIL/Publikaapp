@@ -8,6 +8,7 @@ use App\Http\Controllers\Customer\CartController as CustomerCartController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\OrderActionController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
@@ -47,7 +48,7 @@ Route::bind('role', function ($value) {
     return Role::where('slug', $value)->firstOrFail();
 });
 
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin')->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
     Route::resource('roles', RoleController::class);
@@ -80,6 +81,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/orders', [OrdersController::class, 'index'])->name('orders.index');
     Route::get('/orders/{order}', [OrdersController::class, 'show'])->name('orders.show');
+});
+
+Route::middleware(['auth', 'role:customer'])->prefix('customer')->name('customer.')->group(function () {
+    Route::post('/orders/{order}/return', [OrderActionController::class, 'returnRequest'])
+        ->name('orders.returnRequest');
+
+    Route::post('/orders/{order}/incident', [OrderActionController::class, 'incidentReport'])
+        ->name('orders.incidentReport');
 });
 
 Route::get('/', [ProductController::class, 'homepage'])->name('homepage');

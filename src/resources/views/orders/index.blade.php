@@ -89,31 +89,23 @@
                                         </div>
                                     </div>
 
-                                    <div class="flex flex-wrap justify-end gap-3 mt-3">
+                                    <div class="flex flex-wrap justify-end items-start gap-3 mt-3">
                                         <!-- Ver detalles -->
                                         <a href="{{ route('orders.show', $order->slug) }}"
                                             class="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-lg text-sm font-semibold
-                                                bg-blue-600 text-white hover:bg-blue-700 shadow-sm transition-all whitespace-nowrap">
-                                            <i class="fas fa-eye mr-2"></i> {{ __('Ver Detalles') }}
+                                                bg-blue-600 text-white hover:bg-blue-700 shadow-sm transition-all whitespace-nowrap
+                                                w-full sm:w-auto">
+                                            <i class="fas fa-eye mr-2"></i> {{ __('Ver detalles') }}
                                         </a>
 
                                         @if($order->payment_status === 'paid' && $order->order_status === 'accepted')
                                             <!-- Devolver compra -->
-                                            <div x-data="{ open: false }" class="w-full sm:w-auto">
-                                                <form action="{{ route('customer.orders.returnRequest', $order) }}" method="POST" class="space-y-2">
+                                            <div x-data="{ open: false }" class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+                                                <form action="{{ route('customer.orders.returnRequest', $order) }}" method="POST" class="flex flex-col sm:flex-row gap-2 w-full">
                                                     @csrf
 
-                                                    <!-- Botón para abrir -->
-                                                    <button type="button"
-                                                        @click="open = true; $nextTick(() => $refs.returnNote.focus())"
-                                                        x-show="!open"
-                                                        class="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-lg text-sm font-semibold
-                                                            bg-red-600 text-white hover:bg-red-700 shadow-sm transition-all whitespace-nowrap">
-                                                        <i class="fas fa-undo-alt mr-2"></i> {{ __('Devolver compra') }}
-                                                    </button>
-
-                                                    <!-- Campo + acciones cuando está abierto -->
-                                                    <div x-show="open" x-transition class="flex flex-col sm:flex-row gap-2">
+                                                    <!-- Textarea y acciones -->
+                                                    <div x-show="open" x-transition class="flex flex-col sm:flex-row gap-2 w-full">
                                                         <textarea x-ref="returnNote" name="description" rows="2"
                                                             placeholder="Escribe una nota (opcional)"
                                                             class="w-full sm:w-64 border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500 text-sm"></textarea>
@@ -125,32 +117,32 @@
                                                                 <i class="fas fa-paper-plane mr-2"></i> {{ __('Enviar') }}
                                                             </button>
                                                             <button type="button"
-                                                                @click="open = false"
+                                                                @click="open = false; $refs.returnNote.value='';"
                                                                 class="inline-flex items-center justify-center min-h-[44px] px-4 py-2.5 rounded-lg text-sm font-semibold
                                                                     bg-gray-200 text-gray-700 hover:bg-gray-300 shadow-sm">
                                                                 <i class="fas fa-times"></i>
                                                             </button>
                                                         </div>
                                                     </div>
+
+                                                    <!-- Botón abrir -->
+                                                    <button type="button"
+                                                        @click="open = true; $nextTick(() => $refs.returnNote.focus())"
+                                                        x-show="!open"
+                                                        class="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-lg text-sm font-semibold
+                                                            bg-red-600 text-white hover:bg-red-700 shadow-sm whitespace-nowrap">
+                                                        <i class="fas fa-undo-alt mr-2"></i> {{ __('Devolver compra') }}
+                                                    </button>
                                                 </form>
                                             </div>
 
                                             <!-- Reportar incidente -->
-                                            <div x-data="{ open: false }" class="w-full sm:w-auto">
-                                                <form action="{{ route('customer.orders.incidentReport', $order) }}" method="POST" class="space-y-2">
+                                            <div x-data="{ open: false }" class="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+                                                <form action="{{ route('customer.orders.incidentReport', $order) }}" method="POST" class="flex flex-col sm:flex-row gap-2 w-full">
                                                     @csrf
 
-                                                    <!-- Botón para abrir -->
-                                                    <button type="button"
-                                                        @click="open = true; $nextTick(() => $refs.incidentNote.focus())"
-                                                        x-show="!open"
-                                                        class="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-lg text-sm font-semibold
-                                                            bg-yellow-500 text-black hover:bg-yellow-600 shadow-sm whitespace-nowrap">
-                                                        <i class="fas fa-exclamation-triangle mr-2"></i> {{ __('Reportar incidente') }}
-                                                    </button>
-
-                                                    <!-- Campo + acciones cuando está abierto -->
-                                                    <div x-show="open" x-transition class="flex flex-col sm:flex-row gap-2">
+                                                    <!-- Textarea y acciones -->
+                                                    <div x-show="open" x-transition class="flex flex-col sm:flex-row gap-2 w-full">
                                                         <textarea x-ref="incidentNote" name="description" rows="2"
                                                             placeholder="Describe el incidente (opcional)"
                                                             class="w-full sm:w-64 border-gray-300 rounded-lg shadow-sm focus:ring-yellow-500 focus:border-yellow-500 text-sm"></textarea>
@@ -162,13 +154,22 @@
                                                                 <i class="fas fa-paper-plane mr-2"></i> {{ __('Enviar') }}
                                                             </button>
                                                             <button type="button"
-                                                                @click="open = false"
+                                                                @click="open = false; $refs.incidentNote.value='';"
                                                                 class="inline-flex items-center justify-center min-h-[44px] px-4 py-2.5 rounded-lg text-sm font-semibold
                                                                     bg-gray-200 text-gray-700 hover:bg-gray-300 shadow-sm">
                                                                 <i class="fas fa-times"></i>
                                                             </button>
                                                         </div>
                                                     </div>
+
+                                                    <!-- Botón abrir -->
+                                                    <button type="button"
+                                                        @click="open = true; $nextTick(() => $refs.incidentNote.focus())"
+                                                        x-show="!open"
+                                                        class="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-lg text-sm font-semibold
+                                                            bg-yellow-500 text-black hover:bg-yellow-600 shadow-sm whitespace-nowrap">
+                                                        <i class="fas fa-exclamation-triangle mr-2"></i> {{ __('Reportar incidente') }}
+                                                    </button>
                                                 </form>
                                             </div>
                                         @endif

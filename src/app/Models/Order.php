@@ -45,6 +45,11 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
+    public function actions()
+    {
+        return $this->hasMany(OrderAction::class);
+    }
+
     public static function generateOrderNumber()
     {
         do {

@@ -65,4 +65,11 @@ class OrdersController extends Controller
 
         return view('orders.show', compact('order'));
     }
+
+    public function actions(Order $order)
+    {
+        $actions = $order->actions()->latest()->get();
+
+        return view('orders.actions', compact('order', 'actions'));
+    }
 }

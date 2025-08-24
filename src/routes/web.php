@@ -66,6 +66,8 @@ Route::middleware(['auth', 'role:seller,admin'])->group(function () {
         Route::get('/orders', [OrdersController::class, 'ordersIndex'])->name('orders.index');
         Route::post('/orders/{order}/update', [OrdersController::class, 'updateOrderStatus'])->name('orders.updateStatus');
     });
+
+    Route::get('/orders/{order}/actions', [OrdersController::class, 'actions'])->name('orders.actions');
 });
 
 Route::middleware(['auth'])->group(function () {

@@ -124,9 +124,18 @@
 
                         <div class="flex flex-col gap-2 md:items-end mt-4 md:mt-0">
                             @if($order->payment_status === 'paid' && $order->order_status === 'accepted')
-                                {{-- Mensaje de compra completada --}}
-                                <div class="px-4 py-2 rounded bg-green-100 text-green-700 font-medium shadow">
-                                    {{ __('Compra completada') }}
+                                <div class="flex flex-col gap-2 items-start md:items-end">
+                                    {{-- Mensaje de compra completada --}}
+                                    <div class="px-4 py-2 rounded bg-green-100 text-green-700 font-medium shadow">
+                                        {{ __('Compra completada') }}
+                                    </div>
+
+                                    {{-- Botón para ver acciones (comentarios de devolución/incidentes) --}}
+                                    <a href="{{ route('orders.actions', $order->slug) }}"
+                                    class="inline-flex items-center justify-center min-h-[40px] px-4 py-2 rounded-lg text-sm font-semibold
+                                            bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm transition-all whitespace-nowrap mt-2">
+                                        <i class="fas fa-comments mr-2"></i> {{ __('Ver comentarios') }}
+                                    </a>
                                 </div>
                             @else
                                 {{-- Formulario solo si aún no está completada --}}

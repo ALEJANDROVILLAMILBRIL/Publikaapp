@@ -8,26 +8,26 @@ use Illuminate\Http\Request;
 
 class OrderActionController extends Controller
 {
-    public function returnRequest(Order $order)
+    public function returnRequest(Request $request, Order $order)
     {
         OrderAction::create([
-            'order_id'   => $order->id,
+            'order_id'    => $order->id,
             'action_type' => 'return_request',
-            'description' => 'Solicitud de devolución generada por el cliente.',
-            'phone_number'=> $order->user->phone_number,
+            'description' => $request->input('description') ?: 'Solicitud de devolución generada por el cliente.',
+            'phone_number' => $order->user->phone_number,
             'email'       => $order->user->email,
         ]);
 
         return redirect()->back()->with('success', 'Solicitud de devolución registrada.');
     }
 
-    public function incidentReport(Order $order)
+    public function incidentReport(Request $request, Order $order)
     {
         OrderAction::create([
-            'order_id'   => $order->id,
+            'order_id'    => $order->id,
             'action_type' => 'incident_report',
-            'description' => 'Incidente reportado por el cliente.',
-            'phone_number'=> $order->user->phone_number,
+            'description' => $request->input('description') ?: 'Incidente reportado por el cliente.',
+            'phone_number' => $order->user->phone_number,
             'email'       => $order->user->email,
         ]);
 

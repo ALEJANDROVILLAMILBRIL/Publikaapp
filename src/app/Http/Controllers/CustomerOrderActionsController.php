@@ -22,4 +22,20 @@ class CustomerOrderActionsController extends Controller
 
         return view('customer.orders.actions', compact('actions', 'order'));
     }
+
+    public function confirmResolution(Request $request, OrderAction $action)
+    {
+        $user = Auth::user();
+
+        if ($action->solved_by_seller || $action->solved_by_admin) {
+            $action->update([
+                'solved_by_user' => true,
+                'user_id' => $user->id,
+            ]);
+
+            return redirect()->back()->with('success', 'You have confirmed the resolution of the action.');
+        }
+
+        return redirect()->back()->with('error', 'This action has not been resolved by the seller or admin yet.');
+    }
 }

@@ -58,14 +58,64 @@
                         </div>
 
                         {{-- Estado de solución --}}
-                        <div class="mt-2 text-sm">
-                            @if($action->solved_by_user || $action->solved_by_seller || $action->solved_by_admin)
-                                <span class="text-green-600 dark:text-green-400 font-semibold">{{ __('Solved') }}</span>
-                                @if(!empty($action->solution_notes))
-                                    - <span>{{ $action->solution_notes }}</span>
-                                @endif
+                        <div class="mt-4">
+                            @if(($action->solved_by_seller || $action->solved_by_admin) && $action->solved_by_user)
+                                <div class="p-3 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <i class="fas fa-check-circle text-green-600"></i>
+                                        <span class="text-green-600 dark:text-green-400 font-semibold">{{ __('Fully resolved') }}</span>
+                                    </div>
+                                    @if(!empty($action->solution_notes))
+                                        <p class="text-sm text-green-700 dark:text-green-300">
+                                            <strong>{{ __('Solution provided') }}:</strong> {{ $action->solution_notes }}
+                                        </p>
+                                    @endif
+                                </div>
+                            @elseif($action->solved_by_seller || $action->solved_by_admin)
+                                <div class="p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                                    <div class="flex items-center gap-2 mb-3">
+                                        <i class="fas fa-info-circle text-blue-600"></i>
+                                        <span class="text-blue-600 dark:text-blue-400 font-semibold">{{ __('Solution provided - Awaiting your confirmation') }}</span>
+                                    </div>
+
+                                    @if(!empty($action->solution_notes))
+                                        <div class="mb-4 p-3 bg-blue-100 dark:bg-blue-800/30 rounded-md">
+                                            <p class="text-sm text-blue-800 dark:text-blue-200">
+                                                <strong>{{ __('Solution details') }}:</strong><br>
+                                                {{ $action->solution_notes }}
+                                            </p>
+                                        </div>
+                                    @endif
+
+                                    <p class="text-sm text-blue-700 dark:text-blue-300 mb-8">
+                                        {{ __('The seller/administrator has addressed your report. Please review the solution and confirm if the issue has been resolved to your satisfaction.') }}
+                                    </p>
+
+                                    {{-- Botón para confirmar resolución --}}
+                                    <form id="confirmForm_{{ $action->id }}" action="{{ route('customer.orders.actions.confirm', $action) }}" method="POST" class="inline-block">
+                                        @csrf
+                                        @method('PATCH')
+                                        <button type="button"
+                                                class="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700
+                                                       text-white font-medium rounded-lg shadow-sm transition-colors duration-200
+                                                       focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+                                                onclick="confirmResolution('{{ $action->id }}')">
+                                            <i class="fas fa-thumbs-up mr-2"></i>
+                                            {{ __('Confirm resolution') }}
+                                        </button>
+                                    </form>
+                                </div>
                             @else
-                                <span class="text-red-600 dark:text-red-400 font-semibold">{{ __('Pending') }}</span>
+                                {{-- Pendiente resolución --}}
+                                <div class="p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+                                    <div class="flex items-center gap-2">
+                                        <i class="fas fa-hourglass-half text-yellow-600"></i>
+                                        <span class="text-yellow-600 dark:text-yellow-400 font-semibold">{{ __('Pending resolution') }}</span>
+                                    </div>
+                                    <p class="text-sm text-yellow-700 dark:text-yellow-300 mt-1">
+                                        {{ __('Your report is being reviewed by our team. You will be notified once a solution is provided.') }}
+                                    </p>
+                                </div>
                             @endif
                         </div>
 
@@ -79,4 +129,28 @@
             </div>
         @endif
     </div>
+    @section('script')
+        <script type="text/javascript">
+        function confirmResolution(actionId) {
+            swal({
+                title: @json(__('Confirm resolution?')),
+                text: @json(__('Are you satisfied with the solution provided? This will mark the report as fully resolved.')),
+                icon: 'question',
+                buttons: {
+                    cancel: @json(__('Cancel')),
+                    confirm: {
+                        text: @json(__('Confirm resolution')),
+                        value: true,
+                        className: 'btn-success'
+                    }
+                },
+                dangerMode: false
+            }).then((willConfirm) => {
+                if (willConfirm) {
+                    document.getElementById('confirmForm_' + actionId).submit();
+                }
+            });
+        }
+        </script>
+    @endsection
 </x-app-layout>

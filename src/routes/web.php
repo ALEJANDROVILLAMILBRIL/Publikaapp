@@ -96,7 +96,11 @@ Route::middleware(['auth', 'role:customer'])->prefix('customer')->name('customer
     Route::post('/orders/{order}/incident', [OrderActionController::class, 'incidentReport'])
         ->name('orders.incidentReport');
 
-    Route::get('/my-actions/{order}', [CustomerOrderActionsController::class, 'index'])->name('orders.actions');
+    Route::get('/my-actions/{order}', [CustomerOrderActionsController::class, 'index'])
+        ->name('orders.actions');
+
+    Route::patch('/actions/{action}/confirm', [CustomerOrderActionsController::class, 'confirmResolution'])
+        ->name('orders.actions.confirm');
 });
 
 Route::get('/', [ProductController::class, 'homepage'])->name('homepage');

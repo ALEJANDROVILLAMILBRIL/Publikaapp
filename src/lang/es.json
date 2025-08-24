@@ -406,5 +406,12 @@
     "Describe how this issue was resolved or what action was taken...": "Describa cómo se resolvió este problema o qué acción se tomó...",
     "Resolve report": "Resolver reporte",
     "Are you sure?": "¿Está seguro?",
-    "Are you sure you want to mark this report as resolved?": "¿Está seguro de que desea marcar este informe como resuelto?"
+    "Are you sure you want to mark this report as resolved?": "¿Está seguro de que desea marcar este informe como resuelto?",
+    "Solution provided - Awaiting your confirmation": "Solución proporcionada - Esperando su confirmación",
+    "Solution details": "Detalles de la solución",
+    "The seller/administrator has addressed your report. Please review the solution and confirm if the issue has been resolved to your satisfaction.": "El vendedor/administrador ha atendido su informe. Por favor, revise la solución y confirme si el problema se ha resuelto a su satisfacción.",
+    "Confirm resolution": "Confirmar resolución",
+    "Confirm resolution?": "¿Confirmar resolución?",
+    "Are you satisfied with the solution provided? This will mark the report as fully resolved.": "¿Está satisfecho con la solución proporcionada? Esto marcará el informe como completamente resuelto.",
+    "Fully resolved": "Completamente resuelto"
 }

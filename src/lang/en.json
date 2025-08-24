@@ -407,5 +407,12 @@
     "Describe how this issue was resolved or what action was taken...": "Describe how this issue was resolved or what action was taken...",
     "Resolve report": "Resolve report",
     "Are you sure?": "Are you sure?",
-    "Are you sure you want to mark this report as resolved?": "Are you sure you want to mark this report as resolved?"
+    "Are you sure you want to mark this report as resolved?": "Are you sure you want to mark this report as resolved?",
+    "Solution provided - Awaiting your confirmation": "Solution provided - Awaiting your confirmation",
+    "Solution details": "Solution details",
+    "The seller/administrator has addressed your report. Please review the solution and confirm if the issue has been resolved to your satisfaction.": "The seller/administrator has addressed your report. Please review the solution and confirm if the issue has been resolved to your satisfaction.",
+    "Confirm resolution": "Confirm resolution",
+    "Confirm resolution?": "Confirm resolution?",
+    "Are you satisfied with the solution provided? This will mark the report as fully resolved.": "Are you satisfied with the solution provided? This will mark the report as fully resolved.",
+    "Fully resolved": "Fully resolved"
 }

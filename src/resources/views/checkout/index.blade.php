@@ -185,6 +185,9 @@
                         </div>
                     </div>
 
+                    <input type="hidden" name="latitude" id="latitude">
+                    <input type="hidden" name="longitude" id="longitude">
+
                     <!-- Notas adicionales -->
                     <div class="mb-8">
                         <label for="notes" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -201,8 +204,6 @@
                            class="flex-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-6 py-3 rounded-lg font-medium text-center hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
                             {{ __('Back to Cart') }}
                         </a>
-                        <input type="hidden" name="latitude" id="latitude">
-                        <input type="hidden" name="longitude" id="longitude">
                         <button type="submit"
                                 class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors">
                             {{ __('Place Order') }}

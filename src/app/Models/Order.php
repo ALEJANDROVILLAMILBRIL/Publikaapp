@@ -20,7 +20,9 @@ class Order extends Model
         'paypal_order_id',
         'payment_details',
         'order_status',
-        'notes'
+        'notes',
+        'latitude',
+        'longitude',
     ];
 
     protected $casts = [

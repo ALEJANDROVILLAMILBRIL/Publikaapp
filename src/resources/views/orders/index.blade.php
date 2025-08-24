@@ -95,7 +95,7 @@
                                             class="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-lg text-sm font-semibold
                                                 bg-blue-600 text-white hover:bg-blue-700 shadow-sm transition-all whitespace-nowrap
                                                 w-full sm:w-auto">
-                                            <i class="fas fa-eye mr-2"></i> {{ __('Ver detalles') }}
+                                            <i class="fas fa-eye mr-2"></i> {{ __('View details') }}
                                         </a>
 
                                         @if($order->payment_status === 'paid' && $order->order_status === 'accepted')
@@ -151,7 +151,7 @@
                                                             <button type="submit"
                                                                 class="inline-flex items-center justify-center min-h-[44px] px-4 py-2.5 rounded-lg text-sm font-semibold
                                                                     bg-yellow-500 text-black hover:bg-yellow-600 shadow-sm">
-                                                                <i class="fas fa-paper-plane mr-2"></i> {{ __('Enviar') }}
+                                                                <i class="fas fa-paper-plane mr-2"></i> {{ __('Send') }}
                                                             </button>
                                                             <button type="button"
                                                                 @click="open = false; $refs.incidentNote.value='';"
@@ -168,7 +168,7 @@
                                                         x-show="!open"
                                                         class="inline-flex items-center justify-center min-h-[44px] px-5 py-2.5 rounded-lg text-sm font-semibold
                                                             bg-yellow-500 text-black hover:bg-yellow-600 shadow-sm whitespace-nowrap">
-                                                        <i class="fas fa-exclamation-triangle mr-2"></i> {{ __('Reportar incidente') }}
+                                                        <i class="fas fa-exclamation-triangle mr-2"></i> {{ __('Incident report') }}
                                                     </button>
                                                 </form>
                                             </div>

@@ -34,7 +34,7 @@
             @endisset
 
             <!-- Page Content -->
-            <main>
+            <main class="h-full">
                 {{ $slot }}
             </main>
             @include('components.accessibility-menu')

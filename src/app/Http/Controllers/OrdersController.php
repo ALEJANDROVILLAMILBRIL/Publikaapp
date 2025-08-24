@@ -21,6 +21,7 @@ class OrdersController extends Controller
     public function ordersIndex()
     {
         $orders = Order::with('orderItems.product', 'user')
+            ->withCount('actions')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 

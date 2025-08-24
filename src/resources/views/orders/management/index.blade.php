@@ -133,8 +133,15 @@
                                     {{-- Botón para ver acciones (comentarios de devolución/incidentes) --}}
                                     <a href="{{ route('orders.actions', $order->slug) }}"
                                     class="inline-flex items-center justify-center min-h-[40px] px-4 py-2 rounded-lg text-sm font-semibold
-                                            bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm transition-all whitespace-nowrap mt-2">
+                                            bg-indigo-600 text-white hover:bg-indigo-700 shadow-sm transition-all whitespace-nowrap mt-2 relative">
+
                                         <i class="fas fa-comments mr-2"></i> {{ __('View comments') }}
+
+                                        @if($order->actions_count > 0)
+                                            <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                                                {{ $order->actions_count }}
+                                            </span>
+                                        @endif
                                     </a>
                                 </div>
                             @else

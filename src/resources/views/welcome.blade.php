@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,7 +19,7 @@
 
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
-    <body class="bg-gray-100 min-h-screen">
+    <body class="bg-gray-100 h-full">
         <!-- Header Estilo MercadoLibre -->
         <header class="bg-yellow-400 shadow-lg">
             <div class="container mx-auto px-4">
@@ -122,7 +122,7 @@
         </header>
 
         <!-- Main Content -->
-        <div class="container mx-auto px-4 py-6">
+        <div class="container mx-auto px-4 py-6 h-full">
 
             <!-- Products Section -->
             @if ($products->count())

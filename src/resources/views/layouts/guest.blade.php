@@ -88,7 +88,7 @@
         </div>
     </header>
 
-    <div class="container mx-auto px-4 py-6">
+    <div class="container mx-auto px-4 py-6 h-full">
         <div class="bg-white shadow-md rounded-lg p-6">
             <div class="flex justify-center mt-8 lg:mt-12">
                 <a href="/">

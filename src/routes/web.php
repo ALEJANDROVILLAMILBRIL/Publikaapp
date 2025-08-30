@@ -49,7 +49,7 @@ Route::bind('role', function ($value) {
     return Role::where('slug', $value)->firstOrFail();
 });
 
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin')->group(function () {
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
     Route::resource('roles', RoleController::class);

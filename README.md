@@ -37,3 +37,7 @@ DB_PORT=3306
 DB_DATABASE=publikapp
 DB_USERNAME=user1
 DB_PASSWORD=user1.pass
+
+## Usuario prueba
+Usuario: admin@example.com
+Contraseña: admin123
